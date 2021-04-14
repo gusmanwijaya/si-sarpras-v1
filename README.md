@@ -1,4 +1,13 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# si-sarpras-v1
+
+Aplikasi untuk memenuhi salah satu tugas mata kuliah Kerja Praktik (KP) dengan judul "Sistem Informasi Sarana dan Prasarana MTs Negeri 1 Kota Bengkulu Dengan Menggunakan Quick Response (QR) Code". Aplikasi ini berbasis desktop / website dibuat dengan menggunakan framework Laravel 8, Tailwind CSS v2.0.3, Alpine js dan MySQL sebagai database. <br /> <br />
+Author : Gusman Wijaya. <br /> <br />
+Contact <br />
+
+-   LinkedIn : linkedin.com/in/gusman-wijaya-25997220b
+-   Email : gusman.w.jaya@gmail.com
+
+<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -59,4 +68,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
