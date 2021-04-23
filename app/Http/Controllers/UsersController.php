@@ -660,27 +660,9 @@ class UsersController extends Controller
         }
     }
 
-    public function view_laporanBarang(Request $request, Ruangan $ruangan)
+    public function view_laporanBarang(Ruangan $ruangan)
     {
-        $barang = Barang::query();
-        $barang->where('ruangan_id', $ruangan->id);
-
-        if($request->filled('nama_barang')) {
-            $barang->where('nama_barang', $request->nama_barang);
-        }
-
-        if($request->filled('sumber_dana_id')) {
-            $barang->where('sumber_dana_id', $request->sumber_dana_id);
-        }
-
-        if($request->filled('kondisi')) {
-            $barang->where('kondisi', $request->kondisi);
-        }
-
-        return view('pages.laporan-barang', [
-            'ruangan' => $ruangan,
-            'barang' => $barang->get(),
-        ]);
+        return view('pages.laporan-barang', ['ruangan' => $ruangan]);
     }
 
     public function print(Request $request, Ruangan $ruangan)

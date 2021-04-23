@@ -17,7 +17,7 @@
       <div class="w-full max-w-sm mx-auto rounded-md shadow-lg overflow-hidden bg-white dark:bg-gray-800">
         <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: 
           @if($item->image_url != null) 
-            url('{{ asset('storage/unggah/' . $ruangan->nama_ruangan . '/' . $item->image_url) }}') 
+            url('{{ asset('storage/unggah/Barang/' . $ruangan->nama_ruangan . '/' . $item->image_url) }}') 
           @else
             url('{{ asset('img/404.png') }}')
           @endif

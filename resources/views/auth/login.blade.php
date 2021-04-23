@@ -29,7 +29,7 @@
     <span class="text-gray-700 dark:text-gray-400">Username</span>
     <input
       name="username" id="username"
-      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('username') is-invalid @enderror" type="text" value="{{ old('username') }}"
+      class="block w-full mt-1 text-sm border-4 border-opacity-25 border-purple-400 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:border-purple-300 dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('username') is-invalid @enderror" type="text" value="{{ old('username') }}"
     />
     @error('username')
       <span class="text-xs text-red-600 dark:text-red-400">
@@ -42,7 +42,7 @@
     <input
       name="password"
       id="password"
-      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}"
+      class="block w-full mt-1 text-sm border-4 border-opacity-25 border-purple-400 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:border-purple-300 dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}"
     />
     @error('password')
       <span class="text-xs text-red-600 dark:text-red-400">

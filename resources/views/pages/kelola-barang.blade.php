@@ -18,7 +18,7 @@
                   <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="nama_barang">Nama Barang</label>
                   <div class="flex-shrink w-full inline-block relative">
                       <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
-                          <option value="">-Pilih-</option>
+                          <option value=""></option>
                           @foreach(filterBarang($ruangan->id) as $data)
                           <option value="{{ $data->nama_barang }}">{{ $data->nama_barang }}</option>
                           @endforeach
@@ -32,7 +32,7 @@
                 <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="sumber_dana_id">Sumber Dana</label>
                 <div class="flex-shrink w-full inline-block relative">
                     <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="sumber_dana_id" id="sumber_dana_id">
-                        <option value="">-Pilih-</option>
+                        <option value=""></option>
                         @foreach (sumberDana() as $sumberDana)
                           <option value="{{ $sumberDana->id }}">{{ $sumberDana->sumber_dana }}</option>
                         @endforeach
@@ -46,7 +46,7 @@
                 <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="kondisi">Kondisi</label>
                 <div class="flex-shrink w-full inline-block relative">
                     <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="kondisi" id="kondisi">
-                        <option value="">-Pilih-</option>
+                        <option value=""></option>
                         <option value="Baik">Baik</option>
                         <option value="Rusak Ringan">Rusak Ringan</option>
                         <option value="Rusak Berat">Rusak Berat</option>
