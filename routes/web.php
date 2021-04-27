@@ -27,7 +27,7 @@ Route::get('/scan-qrcode/{ruangan}', [UsersController::class, 'view_scanQRCode']
 // END: Scan QR Code untuk melihat data barang di setiap ruangan
 
 // START: Route Admin && Operator
-Route::middleware(['auth', 'checkRole:0,1'])->group(function () {
+Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     // START: Dashboard
     Route::get('/dashboard', [UsersController::class, 'view_dashboard'])->name('dashboard');
     // END: Dashboard
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'checkRole:0,1'])->group(function () {
 // END: Route Admin && Operator
 
 // START: Route Admin
-Route::middleware(['auth', 'checkRole:0'])->group(function () {
+Route::middleware(['auth', 'checkRole:0', 'verified'])->group(function () {
     // START: Manajemen pengguna
     Route::get('/pengguna', [UsersController::class, 'view_pengguna'])->name('pengguna');
     Route::get('/tambah-pengguna', [UsersController::class, 'view_tambahPengguna'])->name('tambah-pengguna');
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'checkRole:0'])->group(function () {
 // END: Route Admin
 
 // START: Route Operator
-Route::middleware(['auth', 'checkRole:1'])->group(function () {
+Route::middleware(['auth', 'checkRole:1', 'verified'])->group(function () {
     // START: Kelola Ruangan
     Route::get('/tambah-ruangan', [UsersController::class, 'view_tambahRuangan'])->name('tambah-ruangan');
     Route::post('/store-ruangan', [UsersController::class, 'storeRuangan'])->name('store-ruangan');
@@ -121,4 +121,4 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
 });
 // END: Route Operator
 
-Auth::routes();
+Auth::routes(['verify' => true]);

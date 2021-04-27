@@ -10,7 +10,55 @@
     <h6 class="mt-1 mb-10 text-center text-xs text-gray-600">Kelola profile anda sebaik mungkin.</h6>
     <form action="{{ route('store-profile', $users->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="px-4 py-3 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
+            <!-- Photo File Input -->
+            <input type="file" name="image_url" id="image_url" accept="image/*" class="hidden @error('image_url') is-invalid @enderror" x-ref="photo" x-on:change="
+                                photoName = $refs.photo.files[0].name;
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    photoPreview = e.target.result;
+                                };
+                                reader.readAsDataURL($refs.photo.files[0]);
+            ">
+            
+            <div class="text-center">
+                <!-- Current Profile Photo -->
+                <div class="mt-2" x-show="! photoPreview">
+                    <img src="
+                        @if($users->image_url != null) 
+                            @if($users->role == 0)
+                                {{ asset('storage/unggah/Profile/Admin/' . $users->image_url) }}
+                            @else
+                                {{ asset('storage/unggah/Profile/Operator/' . $users->image_url) }} 
+                            @endif
+                        @else
+                            {{ asset('img/user-profile.png') }}
+                        @endif
+                    " class="w-40 h-40 m-auto rounded-full shadow object-cover">
+                </div>
+                <!-- New Profile Photo Preview -->
+                <div class="mt-2" x-show="photoPreview" style="display: none;">
+                    <span class="block w-40 h-40 rounded-full m-auto shadow" x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'" style="background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('null');">
+                    </span>
+                </div>
+                <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 mt-2 ml-3" x-on:click.prevent="$refs.photo.click()">
+                    Pilih Gambar
+                </button>
+
+                @if($users->image_url != null)
+                <a href="#" users-id="{{ $users->id }}" class="deleteProfile inline-flex items-center px-4 py-2 bg-white border border-red-300 rounded-md font-semibold text-xs text-red-700 uppercase tracking-widest shadow-sm hover:text-red-500 focus:outline-none focus:border-red-400 focus:shadow-outline-blue active:text-red-800 active:bg-red-50 transition ease-in-out duration-150 mt-2 ml-3">
+                    Hapus Gambar
+                </a>
+                @endif
+            </div>
+            @error('image_url')
+                <p class="text-xs text-red-600 dark:text-red-400 text-center mt-2">
+                    {{ $message }}
+                </p>
+            @enderror
+        </div>
+
+        <div class="px-4 py-3 mb-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <label class="block text-sm">
             <!-- focus-within sets the color for the icon when input is focused -->
             <div
@@ -40,114 +88,6 @@
             </label>
 
         </div>
-
-        <div class="bg-white dark:bg-gray-800 p7 rounded w-full">
-            <div x-data="dataFileDnD()" class="relative flex flex-col p-4 text-gray-400 border border-gray-200 dark:border-gray-600 rounded">
-                <div x-ref="dnd"
-                    class="relative flex flex-col text-gray-400 border border-gray-200 dark:border-gray-600 border-dashed rounded cursor-pointer">
-                    <input name="image_url" id="image_url" accept="image/*" type="file"
-                        class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer @error('image_url') is-invalid @enderror"
-                        @change="addFiles($event)"
-                        @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
-                        @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                        @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                        title="" />
-            
-                    <div class="flex flex-col items-center justify-center py-10 text-center">
-                        <svg class="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p class="m-0">Tarik file anda kesini atau klik area ini.</p>
-                    </div>
-                </div>
-            
-                <template x-if="files.length > 0">
-                    <div class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-6" @drop.prevent="drop($event)"
-                        @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
-                        <template x-for="(_, index) in Array.from({ length: files.length })">
-                            <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
-                                style="padding-top: 100%;" @dragstart="dragstart($event)" @dragend="fileDragging = null"
-                                :class="{'border-blue-600': fileDragging == index}" draggable="true" :data-index="index">
-                                <button class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none" type="button" @click="remove(index)">
-                                    <svg class="w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                                <template x-if="files[index].type.includes('audio/')">
-                                    <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                                    </svg>
-                                </template>
-                                <template x-if="files[index].type.includes('application/') || files[index].type === ''">
-                                    <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                    </svg>
-                                </template>
-                                <template x-if="files[index].type.includes('image/')">
-                                    <img class="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
-                                        x-bind:src="loadFile(files[index])" />
-                                </template>
-                                <template x-if="files[index].type.includes('video/')">
-                                    <video
-                                        class="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
-                                        <fileDragging x-bind:src="loadFile(files[index])" type="video/mp4">
-                                    </video>
-                                </template>
-            
-                                <div class="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
-                                    <span class="w-full font-bold text-gray-900 truncate"
-                                        x-text="files[index].name">Loading</span>
-                                    <span class="text-xs text-gray-900" x-text="humanFileSize(files[index].size)">...</span>
-                                </div>
-            
-                                <div class="absolute inset-0 z-40 transition-colors duration-300" @dragenter="dragenter($event)"
-                                    @dragleave="fileDropping = null"
-                                    :class="{'bg-blue-200 bg-opacity-80': fileDropping == index && fileDragging != index}">
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </template>
-            </div>
-        </div>
-
-        @error('image_url')
-            <span class="text-xs text-red-600 dark:text-red-400">
-                {{ $message }}
-            </span>
-        @enderror
-
-        @if($users->image_url != null)
-        <div class="flex justify-end -mb-8 mt-4 md:block md:ml-40">
-            <a href="#" class="deleteProfile" users-id="{{ $users->id }}">
-                <button class="p-2 rounded-full mx-5 -mb-4 focus:outline-none text-red-500 bg-red-100 dark:text-red-100 dark:bg-red-500" disabled>
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </a>
-        </div>
-        
-        <div class="h-56 w-full md:w-56 bg-cover rounded-lg shadow-lg bg-white dark:bg-gray-800 mt-4" style="background-image: 
-                @if($users->image_url != null) 
-                    @if($users->role == 0)
-                    url('{{ asset('storage/unggah/Profile/Admin/' . $users->image_url) }}') 
-                    @else
-                    url('{{ asset('storage/unggah/Profile/Operator/' . $users->image_url) }}') 
-                    @endif
-                @else
-                    url('{{ asset('img/user-profile.png') }}')
-                @endif
-        "></div>
-        @endif
 
         <div class="flex justify-start mt-4">
             <button

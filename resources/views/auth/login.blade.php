@@ -26,12 +26,12 @@
 <form action="{{ route('store-login') }}" method="POST">
   @csrf
   <label class="block text-sm">
-    <span class="text-gray-700 dark:text-gray-400">Username</span>
+    <span class="text-gray-700 dark:text-gray-400">Email</span>
     <input
-      name="username" id="username"
-      class="block w-full mt-1 text-sm border-4 border-opacity-25 border-purple-400 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:border-purple-300 dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('username') is-invalid @enderror" type="text" value="{{ old('username') }}"
+      name="email" id="email"
+      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" placeholder="Masukkan email"
     />
-    @error('username')
+    @error('email')
       <span class="text-xs text-red-600 dark:text-red-400">
           {{ $message }}
       </span>
@@ -42,7 +42,7 @@
     <input
       name="password"
       id="password"
-      class="block w-full mt-1 text-sm border-4 border-opacity-25 border-purple-400 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:border-purple-300 dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}"
+      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}" placeholder="Masukkan password"
     />
     @error('password')
       <span class="text-xs text-red-600 dark:text-red-400">
@@ -59,4 +59,15 @@
   Log in
   </button>
 </form>
+
+<hr class="my-8">
+
+<p class="mt-4 text-center">
+  <a
+    class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+    href="#"
+  >
+    Kamu lupa password?
+  </a>
+</p>
 @endsection

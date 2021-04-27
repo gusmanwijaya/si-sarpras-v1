@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
+
     public function view_dashboard()
     {
         return view('pages.dashboard');
@@ -709,15 +710,16 @@ class UsersController extends Controller
     {
         $rules = [
             'name' => 'required|string',
-            'username' => 'required|string|unique:users',
-            'password' => 'min:6',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'min:6|confirmed',
         ];
 
         $message = [
-            'name.required' => 'Nama pengguna harus diisi!',
-            'username.required' => 'Username harus diisi!',
-            'unique' => 'Username sudah terdaftar!',
+            'name.required' => 'Nama lengkap harus diisi!',
+            'email.required' => 'Email address harus diisi!',
+            'unique' => 'Email sudah terdaftar!',
             'password.min' => 'Password minimal 6 karakter!',
+            'password.confirmed' => 'Password tidak sama dengan konfirmasi password!'
         ];
 
         $validate = $this->validate($request, $rules, $message);
@@ -732,7 +734,7 @@ class UsersController extends Controller
 
                 User::create([
                     'name' => $request->name,
-                    'username' => $request->username,
+                    'email' => $request->email,
                     'password' => bcrypt($request->password),
                     'image_url' => $fileName,
                     'role' => 1,
@@ -743,7 +745,7 @@ class UsersController extends Controller
             } else {
                 User::create([
                     'name' => $request->name,
-                    'username' => $request->username,
+                    'email' => $request->email,
                     'password' => bcrypt($request->password),
                     'role' => 1,
                     'remember_token' => Str::random(60),

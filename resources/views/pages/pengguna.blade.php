@@ -106,7 +106,7 @@
                   </div>
                   <div class="px-4 w-5/12">
                     <div class="">
-                      <h6>Username</h6>
+                      <h6>Email</h6>
                     </div>
                   </div>
                   <div class="px-4 w-2/12">
@@ -147,7 +147,7 @@
                       <h6
                         class="font-semibold text-gray-600 text-xs md:text-md block md:hidden"
                       >
-                      {{ $item->username }}
+                      {{ $item->email }}
                       </h6>
                     </div>
                   </div>
@@ -156,7 +156,7 @@
                   >
                     <div class="ml-2">
                       <h6 class="font-semibold text-gray-600 text-sm">
-                          {{ $item->username }}
+                          {{ $item->email }}
                       </h6>
                     </div>
                   </div>
