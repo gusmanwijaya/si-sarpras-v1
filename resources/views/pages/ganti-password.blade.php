@@ -19,7 +19,7 @@
                     <input
                     name="password_lama"
                     id="password_lama"
-                    type="text"
+                    type="password"
                     class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
                     placeholder="Password lama"
                     />
@@ -46,7 +46,7 @@
                     <input
                     name="password_baru"
                     id="password_baru"
-                    type="text"
+                    type="password"
                     class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input @error('password_baru') is-invalid @enderror"
                     placeholder="Password baru"
                     />
@@ -73,7 +73,7 @@
                         <input
                         name="password_konfirmasi"
                         id="password_konfirmasi"
-                        type="text"
+                        type="password"
                         class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input @error('password_konfirmasi') is-invalid @enderror"
                         placeholder="Konfirmasi password"
                         />
@@ -93,7 +93,17 @@
                     </label>
         </div>
 
-        <div class="flex justify-start mt-4">
+        <div class="flex space-x-4 mt-4">
+            <a
+            href="{{ route('profile', $users->id) }}"
+            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent border border-cool-gray-400 rounded-lg hover:border-cool-gray-500 hover:text-cool-gray-500 focus:outline-none"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                <span>Kembali</span>
+            </a>
+
             <button
             type="submit"
             class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none"

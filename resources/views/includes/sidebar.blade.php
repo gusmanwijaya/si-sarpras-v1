@@ -73,12 +73,30 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <span class="ml-4">Pengguna</span>
+        <span class="ml-4">Data Pengguna</span>
       </a>
     </li>
     @endif
 
     @if(auth()->user()->role == 1)
+    <li class="relative px-6 py-3">
+      @if (request()->is('kelola-guru'))
+        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
+        ></span>
+      @endif
+      <a
+        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ request()->is('kelola-guru') ? 'text-gray-800 dark:text-gray-200' : '' }}"
+        href="{{ route('kelola-guru') }}"
+      >
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <span class="ml-4">Data Guru</span>
+      </a>
+    </li>
+    @endif
+
+    {{-- @if(auth()->user()->role == 1)
     <li class="relative px-6 py-3">
       @if (request()->is('kelola-sumber-dana'))
         <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
@@ -91,10 +109,10 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        <span class="ml-4">Kelola Sumber Dana</span>
+        <span class="ml-4">Data Sumber Dana</span>
       </a>
     </li>
-    @endif
+    @endif --}}
 
   </ul>
 
@@ -119,7 +137,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
         stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
       </svg>
-        <span class="ml-4">Kelola Ruangan</span>
+        <span class="ml-4">Data Ruangan</span>
       </a>
     </li>
 
@@ -141,7 +159,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
           </svg>
-          <span class="ml-4">Kelola Barang</span>
+          <span class="ml-4">Data Barang</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -186,7 +204,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span class="ml-4">Laporan</span>
+          <span class="ml-4">Cetak Laporan</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -232,7 +250,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
           </svg>
-          <span class="ml-4">QR Code</span>
+          <span class="ml-4">Scan QR Code</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -345,12 +363,30 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <span class="ml-4">Pengguna</span>
+        <span class="ml-4">Data Pengguna</span>
       </a>
     </li>
     @endif
 
     @if(auth()->user()->role == 1)
+    <li class="relative px-6 py-3">
+      @if (request()->is('kelola-guru'))
+        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
+        ></span>
+      @endif
+      <a
+        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ request()->is('kelola-guru') ? 'text-gray-800 dark:text-gray-200' : '' }}"
+        href="{{ route('kelola-guru') }}"
+      >
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <span class="ml-4">Data Guru</span>
+      </a>
+    </li>
+    @endif
+
+    {{-- @if(auth()->user()->role == 1)
     <li class="relative px-6 py-3">
       @if (request()->is('kelola-sumber-dana'))
         <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
@@ -361,12 +397,12 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
         href="{{ route('kelola-sumber-dana') }}"
       >
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        <span class="ml-4">Sumber Dana</span>
+        <span class="ml-4">Data Sumber Dana</span>
       </a>
     </li>
-    @endif
+    @endif --}}
 
   </ul>
 
@@ -391,7 +427,7 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
       stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
     </svg>
-        <span class="ml-4">Kelola Ruangan</span>
+        <span class="ml-4">Data Ruangan</span>
       </a>
     </li>
 
@@ -413,7 +449,7 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
           </svg>
-          <span class="ml-4">Kelola Barang</span>
+          <span class="ml-4">Data Barang</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -460,7 +496,7 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span class="ml-4">Laporan</span>
+          <span class="ml-4">Cetak Laporan</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -506,7 +542,7 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
           </svg>
-          <span class="ml-4">QR Code</span>
+          <span class="ml-4">Scan QR Code</span>
         </span>
         <svg
           class="w-4 h-4"

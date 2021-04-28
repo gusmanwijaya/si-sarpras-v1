@@ -13,33 +13,45 @@
   <hr class="my-4 border-gray-600"/>
 
   <form action="{{ route('kelola-ruangan') }}" method="GET">
-  <div class="flex justify-center mx-auto flex-1">
-    <div
-      class="relative w-full max-w-xl focus-within:text-purple-500"
-    >
-      <div class="absolute inset-y-0 flex items-center pl-2">
-        <svg
-          class="w-4 h-4"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
+    <div class="flex justify-center mx-auto flex-1">
+        <div
+            class="relative w-full max-w-xl focus-within:text-purple-500"
         >
-          <path
-            fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </div>
-      <input
-        name="cari" id="cari"
-        class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-        type="text"
-        placeholder="Cari berdasarkan nama ruangan"
-        aria-label="Cari"
-      />
+            <div class="absolute inset-y-0 flex items-center pl-2">
+            <svg
+                class="w-4 h-4"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+            >
+                <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+                ></path>
+            </svg>
+            </div>
+            <input
+            name="cari" id="cari"
+            class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+            type="text"
+            placeholder="Cari berdasarkan nama ruangan"
+            aria-label="Cari"
+            />
+        </div>
+
+        <div class="flex justify-start ml-3">
+            <a
+            href="{{ route('kelola-ruangan') }}"
+            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent border border-cool-gray-400 rounded-lg hover:border-cool-gray-500 hover:text-cool-gray-500 focus:outline-none"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Refresh</span>
+            </a>
+        </div>
     </div>
-  </div>
   </form>
 
   <hr class="mt-4 border-gray-600"/>
@@ -133,13 +145,13 @@
         @if(auth()->user()->role == 1)
         <a href="{{ route('edit-ruangan', $item->id) }}">
           <div class="px-5 py-3">
-            <h3 class="text-gray-700 dark:text-white uppercase">{{ $item->nama_ruangan }}</h3>
+            <h3 class="text-gray-700 dark:text-white">{{ $item->nama_ruangan }}</h3>
             <span class="text-gray-500 mt-2">{{ $item->kode_ruangan }}</span>
           </div>
         </a>
         @elseif(auth()->user()->role == 0)
         <div class="px-5 py-3">
-          <h3 class="text-gray-700 dark:text-white uppercase">{{ $item->nama_ruangan }}</h3>
+          <h3 class="text-gray-700 dark:text-white">{{ $item->nama_ruangan }}</h3>
           <span class="text-gray-500 mt-2">{{ $item->kode_ruangan }}</span>
         </div>
         @endif
@@ -168,7 +180,7 @@
       var ruanganNama = $(this).attr('ruangan-nama');
       swal({
         title: "Hapus Ruangan",
-        text: "Apakah anda yakin ingin menghapus ruangan "+ruanganNama+" ?",
+        text: "Apakah anda yakin ingin menghapus "+ruanganNama+" ?",
         icon: "warning",
         buttons: ["Jangan Hapus", "Hapus"],
         dangerMode: true,

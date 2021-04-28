@@ -18,7 +18,10 @@ class CreateRuanganTable extends Migration
             $table->string('nama_ruangan');
             $table->string('kode_ruangan')->nullable();
             $table->string('image_url')->nullable();
+            $table->unsignedBigInteger('guru_id');
+            $table->foreign('guru_id')->references('id')->on('guru');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

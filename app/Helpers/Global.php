@@ -2,7 +2,7 @@
 
 use App\Models\Ruangan;
 use App\Models\Barang;
-use App\Models\SumberDana;
+use App\Models\Guru;
 
 function ruanganSidebar()
 {
@@ -17,10 +17,15 @@ function filterBarang($id)
     return $barang;
 }
 
-function sumberDana()
+function guru()
 {
-    $sumberDana = SumberDana::orderBy('sumber_dana', 'asc')->get();
-    return $sumberDana;
+    $guru = Guru::orderBy('nama', 'asc')->get();
+    return $guru;
+}
+
+function totalGuru()
+{
+    return Guru::count();
 }
 
 function totalRuangan()
@@ -34,16 +39,10 @@ function totalBarangBaik()
     return $barangBaik->count();
 }
 
-function totalBarangRusakRingan()
+function totalBarangRusak()
 {
-    $barangRusakRingan = Barang::where('kondisi', 'Rusak Ringan')->get();
-    return $barangRusakRingan->count();
-}
-
-function totalBarangRusakBerat()
-{
-    $barangRusakBerat = Barang::where('kondisi', 'Rusak Berat')->get();
-    return $barangRusakBerat->count();
+    $barangRusa = Barang::where('kondisi', 'Rusak')->get();
+    return $barangRusa->count();
 }
 
 ?>

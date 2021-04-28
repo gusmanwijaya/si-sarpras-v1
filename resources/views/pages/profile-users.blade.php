@@ -59,7 +59,7 @@
         </div>
 
         <div class="px-4 py-3 mb-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <label class="block text-sm">
+            <label class="block text-sm mb-4">
             <!-- focus-within sets the color for the icon when input is focused -->
             <div
                 class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
@@ -87,34 +87,110 @@
             @enderror
             </label>
 
+            <label class="block text-sm mb-4">
+            <!-- focus-within sets the color for the icon when input is focused -->
+            <div
+                class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
+            >
+            <a href="#" class="ubahEmail" users-id="{{ $users->id }}">
+                <input
+                name="email"
+                id="email"
+                type="email"
+                class="block w-full pl-10 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray cursor-pointer form-input @error('email') is-invalid @enderror"
+                placeholder="Email"
+                value="{{ $users->email }}"
+                readonly
+                />
+
+            </a>
+                <div
+                class="absolute inset-y-0 flex items-center ml-3 pointer-events-none"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                    </svg>
+                </div>
+            </div>
+            @error('email')
+            <span class="text-xs text-red-600 dark:text-red-400">
+                {{ $message }}
+            </span>
+            @enderror
+            </label>
+
+            <label class="block text-sm">
+                <!-- focus-within sets the color for the icon when input is focused -->
+                <div
+                    class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
+                >
+                <a href="#" class="gantiPassword" users-id="{{ $users->id }}">
+                    <input
+                    name="password"
+                    id="password"
+                    type="password"
+                    class="block w-full pl-10 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray cursor-pointer form-input @error('password') is-invalid @enderror"
+                    placeholder="Password"
+                    value="{{ $users->password }}"
+                    readonly
+                    />
+    
+                </a>
+                    <div
+                    class="absolute inset-y-0 flex items-center ml-3 pointer-events-none"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                    </div>
+                </div>
+                @error('password')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+                </label>
+
         </div>
 
         <div class="flex justify-start mt-4">
             <button
             type="submit"
-            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-yellow-400 border border-transparent rounded-lg active:bg-yellow-500 hover:bg-yellow-500 focus:outline-none"
+            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-400 border border-transparent rounded-lg active:bg-green-500 hover:bg-green-500 focus:outline-none"
             >
-                <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                 </svg>
-                <span>Ubah</span>
+                <span>Simpan</span>
             </button>
-
-            <a
-                href="#"
-                class="gantiPassword flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none ml-4" users-id="{{ $users->id }}"
-                >
-                <svg class="w-4 h-4 mr-1 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                </svg>
-                <span>Ganti Password</span>
-            </a>
         </div>
     </form>
 </div>
 @endsection
 
 @push('after-script')
+{{-- START: Ubah Email --}}
+<script>
+    $('.ubahEmail').click(function(){
+      var usersId = $(this).attr('users-id');
+      swal({
+        title: "Ubah Email",
+        text: "Apakah anda ingin mengubah email anda? Anda harus melakukan verifikasi email kembali.",
+        icon: "warning",
+        buttons: ["Jangan Ubah", "Ubah"],
+        dangerMode: true,
+        closeOnClickOutside: false,
+      }).then((willDelete) => {
+        if (willDelete) {
+          window.location = "/ubah-email/"+usersId+"";
+        } else {
+          swal("Email anda tidak jadi diubah.");
+        }
+      });
+    });
+  </script>
+{{-- END: Ubah Email --}}
+
 {{-- START: Delete --}}
 <script>
     $('.deleteProfile').click(function(){
@@ -158,69 +234,4 @@
     });
   </script>
   {{-- END: Ganti Password --}}
-
-<script src="https://unpkg.com/create-file-list"></script>
-<script>
-function dataFileDnD() {
-    return {
-        files: [],
-        fileDragging: null,
-        fileDropping: null,
-        humanFileSize(size) {
-            const i = Math.floor(Math.log(size) / Math.log(1024));
-            return (
-                (size / Math.pow(1024, i)).toFixed(2) * 1 +
-                " " +
-                ["B", "kB", "MB", "GB", "TB"][i]
-            );
-        },
-        remove(index) {
-            let files = [...this.files];
-            files.splice(index, 1);
-
-            this.files = createFileList(files);
-        },
-        drop(e) {
-            let removed, add;
-            let files = [...this.files];
-
-            removed = files.splice(this.fileDragging, 1);
-            files.splice(this.fileDropping, 0, ...removed);
-
-            this.files = createFileList(files);
-
-            this.fileDropping = null;
-            this.fileDragging = null;
-        },
-        dragenter(e) {
-            let targetElem = e.target.closest("[draggable]");
-
-            this.fileDropping = targetElem.getAttribute("data-index");
-        },
-        dragstart(e) {
-            this.fileDragging = e.target
-                .closest("[draggable]")
-                .getAttribute("data-index");
-            e.dataTransfer.effectAllowed = "move";
-        },
-        loadFile(file) {
-            const preview = document.querySelectorAll(".preview");
-            const blobUrl = URL.createObjectURL(file);
-
-            preview.forEach(elem => {
-                elem.onload = () => {
-                    URL.revokeObjectURL(elem.src); // free memory
-                };
-            });
-
-            return blobUrl;
-        },
-        addFiles(e) {
-            const files = createFileList([...this.files], [...e.target.files]);
-            this.files = files;
-            this.form.formData.files = [...files];
-        }
-    };
-}
-</script>
 @endpush

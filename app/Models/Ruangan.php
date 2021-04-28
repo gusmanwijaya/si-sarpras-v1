@@ -12,7 +12,7 @@ class Ruangan extends Model
 
     protected $table = 'ruangan';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama_ruangan', 'kode_ruangan', 'image_url'];
+    protected $fillable = ['nama_ruangan', 'kode_ruangan', 'image_url', 'guru_id'];
 
     public function getDeletedAtAttribute()
     {
@@ -22,5 +22,10 @@ class Ruangan extends Model
     public function Barang()
     {
         return $this->hasMany(Barang::class, 'id', 'ruangan_id');
+    }
+
+    public function Guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id', 'id');
     }
 }

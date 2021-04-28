@@ -22,11 +22,10 @@ class CreateBarangTable extends Migration
             $table->integer('unit');
             $table->string('kondisi');
             $table->string('image_url')->nullable();
-            $table->unsignedBigInteger('sumber_dana_id');
-            $table->foreign('sumber_dana_id')->references('id')->on('sumber_dana');
             $table->unsignedBigInteger('ruangan_id');
             $table->foreign('ruangan_id')->references('id')->on('ruangan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

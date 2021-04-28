@@ -6,8 +6,25 @@
 
 @section('content')
 <div class="container mx-auto py-8 md:px-20 px-5">
-    <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Tong Sampah Ruangan</h3>
-    <h6 class="mt-1 mb-8 text-center text-xs text-gray-600">Tong sampah berisi data yang dihapus sementara, anda bisa memulihkan atau menghapusnya secara permanen.</h6>
+    <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-row">
+            <a
+                href="{{ route('kelola-ruangan') }}"
+                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent rounded-lg hover:text-cool-gray-500 focus:outline-none"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                    </svg>
+            </a>
+        </div>
+
+        <div class="flex flex-col">
+            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Tong Sampah Ruangan</h3>
+            <h6 class="mt-1 text-center text-xs text-gray-600">Tong sampah berisi data yang dihapus sementara, anda bisa memulihkan atau menghapusnya secara permanen.</h6>
+        </div>
+
+        <div class="flex flex-row container w-16"></div>
+    </div>
 
     <hr class="my-4 border-gray-600"/>
 

@@ -29,7 +29,7 @@
     <span class="text-gray-700 dark:text-gray-400">Email</span>
     <input
       name="email" id="email"
-      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" placeholder="Masukkan email"
+      class="block w-full mt-1 text-sm border border-purple-300 border-opacity-30 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}"
     />
     @error('email')
       <span class="text-xs text-red-600 dark:text-red-400">
@@ -42,7 +42,7 @@
     <input
       name="password"
       id="password"
-      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}" placeholder="Masukkan password"
+      class="block w-full mt-1 text-sm border border-purple-300 border-opacity-30 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray  form-input @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}"
     />
     @error('password')
       <span class="text-xs text-red-600 dark:text-red-400">
@@ -65,7 +65,7 @@
 <p class="mt-4 text-center">
   <a
     class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-    href="#"
+    href="{{ route('password.request') }}"
   >
     Kamu lupa password?
   </a>

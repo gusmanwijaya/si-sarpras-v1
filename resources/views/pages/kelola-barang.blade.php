@@ -10,76 +10,63 @@
         <div class="container mx-auto px-4">
             <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Barang {{ $ruangan->nama_ruangan }}</h3>
             <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola barang dengan sebaik mungkin.</h6>
+
             <hr class="my-4 border-gray-600"/>
+
             <form action="{{ route('kelola-barang', $ruangan->id) }}" method="GET">
-            <label class="text-gray-800 dark:text-gray-50 text-sm ml-3">Filter berdasarkan</label>
-            <div class="flex flex-row items-center justify-between mt-2">
-              <div class='w-full md:w-1/2 px-3'>
-                  <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="nama_barang">Nama Barang</label>
+              <label class="text-gray-800 dark:text-gray-50 text-sm ml-3">Filter berdasarkan</label>
+              <div class="flex flex-row items-center justify-between mt-2">
+                <div class='w-full md:w-1/2 px-3'>
+                    <div class="flex-shrink w-full inline-block relative">
+                        <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
+                            <option value="">Nama Barang</option>
+                            @foreach(filterBarang($ruangan->id) as $data)
+                            <option value="{{ $data->nama_barang }}">{{ $data->nama_barang }}</option>
+                            @endforeach
+                        </select>
+                        <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='w-full md:w-1/2 px-3'>
                   <div class="flex-shrink w-full inline-block relative">
-                      <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
-                          <option value=""></option>
-                          @foreach(filterBarang($ruangan->id) as $data)
-                          <option value="{{ $data->nama_barang }}">{{ $data->nama_barang }}</option>
-                          @endforeach
+                      <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="kondisi" id="kondisi">
+                          <option value="">Kondisi</option>
+                          <option value="Baik">Baik</option>
+                          <option value="Rusak">Rusak</option>
                       </select>
                       <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
                           <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                       </div>
                   </div>
-              </div>
-              <div class='w-full md:w-1/2 px-3'>
-                <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="sumber_dana_id">Sumber Dana</label>
-                <div class="flex-shrink w-full inline-block relative">
-                    <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="sumber_dana_id" id="sumber_dana_id">
-                        <option value=""></option>
-                        @foreach (sumberDana() as $sumberDana)
-                          <option value="{{ $sumberDana->id }}">{{ $sumberDana->sumber_dana }}</option>
-                        @endforeach
-                    </select>
-                    <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
                 </div>
               </div>
-              <div class='w-full md:w-1/2 px-3'>
-                <label class='block tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="kondisi">Kondisi</label>
-                <div class="flex-shrink w-full inline-block relative">
-                    <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="kondisi" id="kondisi">
-                        <option value=""></option>
-                        <option value="Baik">Baik</option>
-                        <option value="Rusak Ringan">Rusak Ringan</option>
-                        <option value="Rusak Berat">Rusak Berat</option>
-                    </select>
-                    <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                </div>
+
+              <div class="flex justify-end mt-4 mr-3">
+                <button
+                type="submit"
+                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-indigo-400 border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-500 focus:outline-none mr-2"
+                >
+                  <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                    <span>Filter</span>
+                </button>
+
+                <a
+                href="{{ route('kelola-barang', $ruangan->id) }}"
+                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-cool-gray-400 border border-transparent rounded-lg active:bg-cool-gray-500 hover:bg-cool-gray-500 focus:outline-none"
+                >
+                  <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>Refresh</span>
+                </a>
+
               </div>
-          </div>
-
-          <div class="flex justify-end mt-4 mr-3">
-            <button
-            type="submit"
-            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-indigo-400 border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-500 focus:outline-none mr-2"
-            >
-              <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-                <span>Filter</span>
-            </button>
-
-            <a
-            href="{{ route('kelola-barang', $ruangan->id) }}"
-            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-cool-gray-400 border border-transparent rounded-lg active:bg-cool-gray-500 hover:bg-cool-gray-500 focus:outline-none"
-            >
-              <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              <span>Refresh</span>
-            </a>
-          </div>
-        </form>
+            </form>
 
           <hr class="mt-4 border-gray-600"/>
             
@@ -177,6 +164,7 @@
             </div>
             {{-- END: Tombol mobile screen --}}
           @endif
+
           <div class="flex -mx-4 justify-center mt-6 mb-2">
             <!-- START: Shipping Cart -->
             <div class="w-full px-4 mb-4 md:w-11/12 md:mb-0">
@@ -230,40 +218,28 @@
                     />
                   </div>
                 </div>
+
                 <div class="px-4 w-auto md:w-5/12 flex-1">
                   <div class="space-y-2 md:space-y-1">
                     <h6 class="font-semibold text-md md:text-xl leading-8 text-gray-800 dark:text-gray-50">
                       {{ $item->nama_barang }}
                     </h6>
-                    <span class="block text-sm md:text-md text-gray-800 dark:text-gray-50">{{ $item->jumlah }} {{ $item->satuan }}</span>
-                    <h6
-                      class="font-semibold text-xs md:text-md block md:hidden"
-                    >
-                    @if($item->kondisi == "Baik")
-                    <span
-                    class="px-2 py-1 leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                    >
-                        {{ $item->kondisi }}
-                    </span>
-                    @elseif($item->kondisi == "Rusak Ringan")
-                    <span
-                    class="px-2 py-1 leading-tight text-yellow-700 bg-yellow-100 rounded-full dark:bg-yellow-700 dark:text-yellow-100"
-                    >
-                        {{ $item->kondisi }}
-                    </span>
-                    @elseif($item->kondisi == "Rusak Berat")
-                    <span
-                    class="px-2 py-1 leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100"
-                    >
-                        {{ $item->kondisi }}
-                    </span>
-                    @endif
+                    <span class="block text-sm md:text-md text-gray-800 dark:text-gray-50">Jumlah : {{ $item->unit }}</span>
+                    <h6 class="font-semibold text-xs md:text-md block md:hidden">
+                      @if($item->kondisi == "Baik")
+                        <span class="px-2 py-1 leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            {{ $item->kondisi }}
+                        </span>
+                      @elseif($item->kondisi == "Rusak")
+                        <span class="px-2 py-1 leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                            {{ $item->kondisi }}
+                        </span>
+                      @endif
                     </h6>
                   </div>
                 </div>
-                <div
-                  class="w-auto md:w-5/12 flex-none md:flex-nowrap md:block hidden"
-                >
+
+                <div class="w-auto md:w-5/12 flex-none md:flex-nowrap md:block hidden">
                   <div class="ml-2">
                     <h6 class="font-semibold text-sm">
                         @if($item->kondisi == "Baik")
@@ -272,13 +248,7 @@
                         >
                             {{ $item->kondisi }}
                         </span>
-                        @elseif($item->kondisi == "Rusak Ringan")
-                        <span
-                        class="px-2 py-1 leading-tight text-yellow-700 bg-yellow-100 rounded-full dark:bg-yellow-700 dark:text-yellow-100"
-                        >
-                            {{ $item->kondisi }}
-                        </span>
-                        @elseif($item->kondisi == "Rusak Berat")
+                        @elseif($item->kondisi == "Rusak")
                         <span
                         class="px-2 py-1 leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100"
                         >
@@ -291,22 +261,16 @@
                 <div class="px-6 w-1/12">
                   <div class="text-center flex flex-row justify-end">
                       @if(auth()->user()->role == 1)
-                        <a
-                            href="{{ route('edit-barang', [$ruangan->id, $item->id]) }}"
-                            class="text-yellow-400 dark:text-yellow-500 border-none focus:outline-none px-3 py-1"
-                        >
-                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        <a href="{{ route('edit-barang', [$ruangan->id, $item->id]) }}" class="text-yellow-400 dark:text-yellow-500 border-none focus:outline-none px-3 py-1">
+                          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </a>
     
-                        <a
-                            href="#"
-                            class="deleteBarang text-red-400 dark:text-red-500 border-none focus:outline-none px-3 py-1" ruangan-id="{{ $ruangan->id }}" barang-id="{{ $item->id }}" barang-nama="{{ $item->nama_barang }}"
-                        >
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" class="deleteBarang text-red-400 dark:text-red-500 border-none focus:outline-none px-3 py-1" ruangan-id="{{ $ruangan->id }}" barang-id="{{ $item->id }}" barang-nama="{{ $item->nama_barang }}">
+                          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
+                          </svg>
                         </a>
                       @endif
                     </div>

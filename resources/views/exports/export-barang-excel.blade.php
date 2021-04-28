@@ -3,9 +3,11 @@
         <tr>
             <th></th>
             <th>
-                Laporan Sarana dan Prasarana <br/>
-                Ruangan {{ $namaRuangan }} <br/>
-                Tahun {{ $tahunNow }}
+                DAFTAR INVENTARIS RUANG (DIR) <br/>
+                Penanggung Jawab Ruang : @foreach ($namaGuru as $item)
+                    {{ $item->nama }}
+                @endforeach <br/>
+                Gedung/Ruang : {{ $namaRuangan }}
             </th>
         </tr>
     </thead>
@@ -15,13 +17,11 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Kode Barang</th>
             <th>Nama Barang</th>
-            <th>Merek</th>
-            <th>Jumlah</th>
-            <th>Satuan</th>
-            <th>Sumber Dana</th>
-            <th>Tahun Barang</th>
+            <th>Merek/Type</th>
+            <th>No. Reg</th>
+            <th>Tahun</th>
+            <th>Unit</th>
             <th>Kondisi</th>
         </tr>
     </thead>
@@ -29,13 +29,11 @@
         @foreach ($barang as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->kode_barang }}</td>
                 <td>{{ $item->nama_barang }}</td>
                 <td>{{ $item->merek }}</td>
-                <td>{{ $item->jumlah }}</td>
-                <td>{{ $item->satuan }}</td>
-                <td>{{ $item->SumberDana->sumber_dana }}</td>
-                <td>{{ $item->tahun_barang }}</td>
+                <td>{{ $item->no_reg }}</td>
+                <td>{{ $item->tahun }}</td>
+                <td>{{ $item->unit }}</td>
                 <td>{{ $item->kondisi }}</td>
             </tr>
         @endforeach
@@ -47,41 +45,49 @@
 <table>
     <tr>
         <th></th>
+        <th>Waka. Sarana dan Prasarana</th>
         <th></th>
         <th></th>
         <th></th>
         <th></th>
         <th></th>
+        <th>Bengkulu, {{ $tanggalNow }} {{ $bulanNow }} {{ $tahunNow }} <br/>
+            Penanggung Jawab Ruang</th>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
         <th></th>
-        <th>Bengkulu, {{ $tanggalNow }} 
-            @if($bulanNow == "January")
-            Januari
-            @elseif($bulanNow == "February")
-            February
-            @elseif($bulanNow == "March")
-            Maret
-            @elseif($bulanNow == "April")
-            April
-            @elseif($bulanNow == "May")
-            Mei
-            @elseif($bulanNow == "June")
-            Juni
-            @elseif($bulanNow == "July")
-            Juli
-            @elseif($bulanNow == "August")
-            Agustus
-            @elseif($bulanNow == "September")
-            September
-            @elseif($bulanNow == "October")
-            Oktober
-            @elseif($bulanNow == "November")
-            Nopember
-            @elseif($bulanNow == "December")
-            Desember
-            @endif 
-            {{ $tahunNow }} <br/>
-            Mengetahui, <br/> 
-            Kepala MTs Negeri 1 Kota Bengkulu</th>
+        <th>Drs. Adenan <br />
+            NIP. 19650721 199703 1 002
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>@foreach ($namaGuru as $item)
+            {{ $item->nama }} <br />
+            NIP. {{ $item->nip }}
+        @endforeach
+        </th>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Mengetahui <br />
+            Kepala
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
     <tr></tr>
     <tr></tr>
@@ -92,11 +98,12 @@
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>Eza Avlenda, S.Pd., M.Si <br/> 
-            NIP. 197904062003122002
+        <th>
+            Eza Avlenda, S.Pd., M.Si <br />
+            NIP. 19790406 200312 2 002
         </th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
 </table>

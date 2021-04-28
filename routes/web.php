@@ -38,6 +38,8 @@ Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     Route::get('/destroy-foto-profile/{users}', [UsersController::class, 'destroyFotoProfile'])->name('destroy-foto-profile');
     Route::get('/ganti-password/{users}', [UsersController::class, 'view_gantiPassword'])->name('ganti-password');
     Route::post('/store-ganti-password/{users}', [UsersController::class, 'storeGantiPassword'])->name('store-ganti-password');
+    Route::get('/ubah-email/{users}', [UsersController::class, 'view_ubahEmail'])->name('ubah-email');
+    Route::post('/store-ubah-email/{users}', [UsersController::class, 'storeUbahEmail'])->name('store-ubah-email');
     // END: Profile
 
     // START: Laporan
@@ -99,16 +101,29 @@ Route::middleware(['auth', 'checkRole:1', 'verified'])->group(function () {
     // END: Kelola Barang
 
     // START: Kelola Sumber Dana
-    Route::get('/kelola-sumber-dana', [UsersController::class, 'view_kelolaSumberDana'])->name('kelola-sumber-dana');
-    Route::get('/destroy-sumber-dana/{sumberDana}', [UsersController::class, 'destroySumberDana'])->name('destroy-sumber-dana');
-    Route::get('/destroy-semua-sumber-dana', [UsersController::class, 'destroySemuaSumberDana'])->name('destroy-semua-sumber-dana');
-    Route::post('/store-sumber-dana', [UsersController::class, 'storeSumberDana'])->name('store-sumber-dana');
-    Route::get('/edit-sumber-dana/{sumberDana}', [UsersController::class, 'view_editSumberDana'])->name('edit-sumber-dana');
-    Route::post('/store-edit-sumber-dana/{sumberDana}', [UsersController::class, 'storeEditSumberDana'])->name('store-edit-sumber-dana');
-    Route::get('/tong-sampah/sumber-dana', [UsersController::class, 'view_tongSampahSumberDana'])->name('tong-sampah-sumber-dana');
-    Route::get('/pulihkan-sumber-dana/{id?}', [UsersController::class, 'pulihkanSumberDana'])->name('pulihkan-sumber-dana');
-    Route::get('/hapus-permanen-sumber-dana/{id?}', [UsersController::class, 'hapusPermanenSumberDana'])->name('hapus-permanen-sumber-dana');
+    // Route::get('/kelola-sumber-dana', [UsersController::class, 'view_kelolaSumberDana'])->name('kelola-sumber-dana');
+    // Route::get('/destroy-sumber-dana/{sumberDana}', [UsersController::class, 'destroySumberDana'])->name('destroy-sumber-dana');
+    // Route::get('/destroy-semua-sumber-dana', [UsersController::class, 'destroySemuaSumberDana'])->name('destroy-semua-sumber-dana');
+    // Route::post('/store-sumber-dana', [UsersController::class, 'storeSumberDana'])->name('store-sumber-dana');
+    // Route::get('/edit-sumber-dana/{sumberDana}', [UsersController::class, 'view_editSumberDana'])->name('edit-sumber-dana');
+    // Route::post('/store-edit-sumber-dana/{sumberDana}', [UsersController::class, 'storeEditSumberDana'])->name('store-edit-sumber-dana');
+    // Route::get('/tong-sampah/sumber-dana', [UsersController::class, 'view_tongSampahSumberDana'])->name('tong-sampah-sumber-dana');
+    // Route::get('/pulihkan-sumber-dana/{id?}', [UsersController::class, 'pulihkanSumberDana'])->name('pulihkan-sumber-dana');
+    // Route::get('/hapus-permanen-sumber-dana/{id?}', [UsersController::class, 'hapusPermanenSumberDana'])->name('hapus-permanen-sumber-dana');
     // END: Kelola Sumber Dana
+
+    // START: Data Guru
+    Route::get('/kelola-guru', [UsersController::class, 'view_kelolaGuru'])->name('kelola-guru');
+    Route::get('/destroy-guru/{guru}', [UsersController::class, 'destroyGuru'])->name('destroy-guru');
+    Route::get('/destroy-semua-guru', [UsersController::class, 'destroySemuaGuru'])->name('destroy-semua-guru');
+    Route::get('/tambah-guru', [UsersController::class, 'view_tambahGuru'])->name('tambah-guru');
+    Route::post('/store-guru', [UsersController::class, 'storeGuru'])->name('store-guru');
+    Route::get('/edit-guru/{guru}', [UsersController::class, 'view_editGuru'])->name('edit-guru');
+    Route::post('/store-edit-guru/{guru}', [UsersController::class, 'storeEditGuru'])->name('store-edit-guru');
+    Route::get('/tong-sampah/guru', [UsersController::class, 'view_tongSampahGuru'])->name('tong-sampah-guru');
+    Route::get('/pulihkan-guru/{id?}', [UsersController::class, 'pulihkanGuru'])->name('pulihkan-guru');
+    Route::get('/hapus-permanen-guru/{id?}', [UsersController::class, 'hapusPermanenGuru'])->name('hapus-permanen-guru');
+    // END: Data Guru
 
     // START: Export Excel
     Route::get('/export-barang-excel/{ruangan}', [UsersController::class, 'exportBarangExcel'])->name('export-barang-excel');

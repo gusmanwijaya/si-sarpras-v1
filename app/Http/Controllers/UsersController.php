@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exports\BarangExport;
 use App\Models\Barang;
+use App\Models\Guru;
 use App\Models\Ruangan;
-use App\Models\SumberDana;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,8 +68,8 @@ class UsersController extends Controller
     public function storeRuangan(Request $request)
     {
         // START: Check validasi
-        $rules = ['nama_ruangan' => 'required'];
-        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!'];
+        $rules = ['nama_ruangan' => 'required', 'guru_id' => 'required'];
+        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!', 'guru_id.required' => 'Penanggung jawab ruangan harus dipilih!'];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
 
@@ -86,6 +86,7 @@ class UsersController extends Controller
                     'kode_ruangan' => $request->kode_ruangan,
                     'nama_ruangan' => $request->nama_ruangan,
                     'image_url' => $fileName,
+                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil ditambahkan!');
@@ -93,7 +94,8 @@ class UsersController extends Controller
                 // START: Simpan data ke database
                 Ruangan::create([
                     'kode_ruangan' => $request->kode_ruangan,
-                    'nama_ruangan' => $request->nama_ruangan
+                    'nama_ruangan' => $request->nama_ruangan,
+                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil ditambahkan!');
@@ -153,8 +155,8 @@ class UsersController extends Controller
     public function storeEditRuangan(Request $request, Ruangan $ruangan)
     {
         // START: Check validasi
-        $rules = ['nama_ruangan' => 'required'];
-        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!'];
+        $rules = ['nama_ruangan' => 'required', 'guru_id' => 'required'];
+        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!', 'guru_id.required' => 'Penanggung jawab ruangan harus dipilih!'];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
 
@@ -170,7 +172,8 @@ class UsersController extends Controller
                 $ruangan->update([
                     'kode_ruangan' => $request->kode_ruangan,
                     'nama_ruangan' => $request->nama_ruangan,
-                    'image_url' => $fileName
+                    'image_url' => $fileName,
+                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil diubah!');
@@ -178,7 +181,8 @@ class UsersController extends Controller
                 // START: Simpan data ke database
                 $ruangan->update([
                     'kode_ruangan' => $request->kode_ruangan,
-                    'nama_ruangan' => $request->nama_ruangan
+                    'nama_ruangan' => $request->nama_ruangan,
+                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil diubah!');
@@ -268,101 +272,232 @@ class UsersController extends Controller
         }
     }
 
-    public function view_kelolaSumberDana()
+    public function view_kelolaGuru(Request $request)
     {
-        $dataSumberDana = SumberDana::orderBy('sumber_dana', 'asc')->paginate(5);
-        return view('pages.sumber-dana', compact('dataSumberDana'));
-    }
-
-    public function destroySumberDana(SumberDana $sumberDana)
-    {
-        $checkDb = Barang::where('sumber_dana_id', $sumberDana->id)->get()->count();
-
-        if($checkDb > 0) {
-            return redirect()->route('kelola-sumber-dana')->with('gagal', 'Sumber dana tidak bisa dihapus karena masih digunakan pada barang!');
-        } else {
-            $sumberDana->delete();
+        if($request->has('cari')) {
+            $dataGuru = Guru::where('nama', 'LIKE', '%' .$request->cari. '%')->paginate(5);
+        }else {
+            $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(5);
         }
 
-        return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil dihapus!');
+        return view('pages.guru', compact('dataGuru'));
     }
 
-    public function destroySemuaSumberDana()
-    {
-        $checkSumberDana = Barang::select('sumber_dana_id')->get()->count();
-        if($checkSumberDana > 0) {
-            return redirect()->route('kelola-sumber-dana')->with('gagal', 'Semua sumber dana tidak bisa dihapus karena masih ada salah satu sumber dana yang digunakan pada barang!');
+    public function destroyGuru(Guru $guru) {
+        $checkDbGuru = Ruangan::where('guru_id', $guru->id)->get()->count();
+
+        if($checkDbGuru > 0){
+            return redirect()->route('kelola-guru')->with('gagal', 'Data guru tidak bisa dihapus karena guru tersebut masih menjadi penanggung jawab di ruangan!');
+        }else{
+            $guru->delete();
+        }
+
+        return redirect()->route('kelola-guru')->with('sukses', 'Data guru berhasil dihapus!');
+    }
+
+    public function destroySemuaGuru() {
+        $checkGuru = Ruangan::select('guru_id')->get()->count();
+
+        if($checkGuru > 0) {
+            return redirect()->route('kelola-guru')->with('gagal', 'Semua data guru tidak bisa dihapus karena salah satu guru masih menjadi penanggung jawab di ruangan!');
         }else {
-            $dataSumberDana = SumberDana::all()->count();
+            $dataGuru = Guru::all()->count();
 
-            if($dataSumberDana < 1) {
-                return redirect()->route('kelola-sumber-dana')->with('gagal', 'Data sudah kosong!');
+            if($dataGuru < 1) {
+                return redirect()->route('kelola-guru')->with('gagal', 'Data sudah kosong!');
             }else{
-                SumberDana::query()->delete();
+                Guru::query()->delete();
 
-                return redirect()->route('kelola-sumber-dana')->with('sukses', 'Semua sumber dana berhasil dihapus!');
+                return redirect()->route('kelola-guru')->with('sukses', 'Semua data guru berhasil dihapus!');
             }
         }
     }
 
-    public function storeSumberDana(Request $request)
+    public function view_tambahGuru()
     {
-        $rules = ['sumber_dana' => 'required'];
-        $message = ['sumber_dana.required' => 'Sumber dana harus diisi!'];
-        $validate = $this->validate($request, $rules, $message);
-
-        if($validate) {
-            SumberDana::create(['sumber_dana' => $request->sumber_dana]);
-
-            return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil ditambahkan!');
-        }
+        return view('pages.tambah-guru');
     }
 
-    public function view_editSumberDana(SumberDana $sumberDana)
-    {
-        return view('pages.edit-sumber-dana', compact(['sumberDana']));
-    }
+    public function storeGuru(Request $request) {
+        $rules = [
+            'nama' => 'required|string',
+            'nip' => 'string',
+            'golongan' => 'required|string',
+            'keterangan' => 'string'
+        ];
 
-    public function storeEditSumberDana(Request $request, SumberDana $sumberDana)
-    {
-        $rules = ['sumber_dana' => 'required'];
-        $message = ['sumber_dana.required' => 'Sumber dana harus diisi!'];
+        $message = [
+            'nama.required' => 'Nama harus diisi!',
+            'nip.string' => 'NIP harus berupa angka!',
+            'keterangan.string' => 'Keterangan harus berupa huruf atau angka!',
+            'golongan.required' => 'Golongan harus diisi!'
+        ];
+
         $validate = $this->validate($request, $rules, $message);
 
         if($validate){
-            $sumberDana->update(['sumber_dana' => $request->sumber_dana]);
-
-            return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil diubah!');
+            Guru::create([
+                'nama' => $request->nama,
+                'nip' => $request->nip,
+                'golongan' => $request->golongan,
+                'keterangan' => $request->keterangan
+            ]);
+            return redirect()->route('kelola-guru')->with('sukses', 'Data Guru berhasil ditambahkan!');
         }
     }
 
-    public function view_tongSampahSumberDana()
-    {
-        $sumberDanaTrashed = SumberDana::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
-        return view('pages.tong-sampah-sumber-dana', compact('sumberDanaTrashed'));
+    public function view_editGuru(Guru $guru) {
+        return view('pages.edit-guru', compact('guru'));
     }
 
-    public function pulihkanSumberDana($id = null)
-    {
+    public function storeEditGuru(Request $request, Guru $guru) {
+        $rules = [
+            'nama' => 'required|string',
+            'nip' => 'string',
+            'golongan' => 'required|string',
+            'keterangan' => 'string'
+        ];
+
+        $message = [
+            'nama.required' => 'Nama harus diisi!',
+            'nip.string' => 'NIP harus berupa angka!',
+            'keterangan.string' => 'Keterangan harus berupa huruf atau angka!',
+            'golongan.required' => 'Golongan harus diisi!'
+        ];
+
+        $validate = $this->validate($request, $rules, $message);
+
+        if($validate){
+            $guru->update([
+                'nama' => $request->nama,
+                'nip' => $request->nip,
+                'golongan' => $request->golongan,
+                'keterangan' => $request->keterangan
+            ]);
+            return redirect()->route('kelola-guru')->with('sukses', 'Data Guru berhasil diubah!');
+        }
+    }
+
+    public function view_tongSampahGuru() {
+        $guruTrashed = Guru::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        return view('pages.tong-sampah-guru', compact('guruTrashed'));
+    }
+
+    public function pulihkanGuru($id = null) {
         if($id != null) {
-            SumberDana::onlyTrashed()->where('id', $id)->restore();
-            return redirect()->route('tong-sampah-sumber-dana')->with('sukses', 'Data berhasil dipulihkan!');
+            Guru::onlyTrashed()->where('id', $id)->restore();
+            return redirect()->route('tong-sampah-guru')->with('sukses', 'Data berhasil dipulihkan!');
         }else {
-            SumberDana::onlyTrashed()->restore();
-            return redirect()->route('kelola-sumber-dana')->with('sukses', 'Data berhasil dipulihkan!');
+            Guru::onlyTrashed()->restore();
+            return redirect()->route('kelola-guru')->with('sukses', 'Data berhasil dipulihkan!');
         }
     }
 
-    public function hapusPermanenSumberDana($id = null)
-    {
+    public function hapusPermanenGuru($id = null) {
         if($id != null) {
-            SumberDana::onlyTrashed()->where('id', $id)->forceDelete();
-            return redirect()->route('tong-sampah-sumber-dana')->with('sukses', 'Data berhasil dihapus secara permanen!');
+            Guru::onlyTrashed()->where('id', $id)->forceDelete();
+            return redirect()->route('tong-sampah-guru')->with('sukses', 'Data berhasil dihapus secara permanen!');
         } else {
-            SumberDana::onlyTrashed()->forceDelete();
-            return redirect()->route('kelola-sumber-dana')->with('sukses', 'Data berhasil dihapus secara permanen!');
+            Guru::onlyTrashed()->forceDelete();
+            return redirect()->route('kelola-guru')->with('sukses', 'Data berhasil dihapus secara permanen!');
         }
     }
+
+    // public function view_kelolaSumberDana()
+    // {
+    //     $dataSumberDana = SumberDana::orderBy('sumber_dana', 'asc')->paginate(5);
+    //     return view('pages.sumber-dana', compact('dataSumberDana'));
+    // }
+
+    // public function destroySumberDana(SumberDana $sumberDana)
+    // {
+    //     $checkDb = Barang::where('sumber_dana_id', $sumberDana->id)->get()->count();
+
+    //     if($checkDb > 0) {
+    //         return redirect()->route('kelola-sumber-dana')->with('gagal', 'Sumber dana tidak bisa dihapus karena masih digunakan pada barang!');
+    //     } else {
+    //         $sumberDana->delete();
+    //     }
+
+    //     return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil dihapus!');
+    // }
+
+    // public function destroySemuaSumberDana()
+    // {
+    //     $checkSumberDana = Barang::select('sumber_dana_id')->get()->count();
+    //     if($checkSumberDana > 0) {
+    //         return redirect()->route('kelola-sumber-dana')->with('gagal', 'Semua sumber dana tidak bisa dihapus karena masih ada salah satu sumber dana yang digunakan pada barang!');
+    //     }else {
+    //         $dataSumberDana = SumberDana::all()->count();
+
+    //         if($dataSumberDana < 1) {
+    //             return redirect()->route('kelola-sumber-dana')->with('gagal', 'Data sudah kosong!');
+    //         }else{
+    //             SumberDana::query()->delete();
+
+    //             return redirect()->route('kelola-sumber-dana')->with('sukses', 'Semua sumber dana berhasil dihapus!');
+    //         }
+    //     }
+    // }
+
+    // public function storeSumberDana(Request $request)
+    // {
+    //     $rules = ['sumber_dana' => 'required'];
+    //     $message = ['sumber_dana.required' => 'Sumber dana harus diisi!'];
+    //     $validate = $this->validate($request, $rules, $message);
+
+    //     if($validate) {
+    //         SumberDana::create(['sumber_dana' => $request->sumber_dana]);
+
+    //         return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil ditambahkan!');
+    //     }
+    // }
+
+    // public function view_editSumberDana(SumberDana $sumberDana)
+    // {
+    //     return view('pages.edit-sumber-dana', compact(['sumberDana']));
+    // }
+
+    // public function storeEditSumberDana(Request $request, SumberDana $sumberDana)
+    // {
+    //     $rules = ['sumber_dana' => 'required'];
+    //     $message = ['sumber_dana.required' => 'Sumber dana harus diisi!'];
+    //     $validate = $this->validate($request, $rules, $message);
+
+    //     if($validate){
+    //         $sumberDana->update(['sumber_dana' => $request->sumber_dana]);
+
+    //         return redirect()->route('kelola-sumber-dana')->with('sukses', 'Sumber dana berhasil diubah!');
+    //     }
+    // }
+
+    // public function view_tongSampahSumberDana()
+    // {
+    //     $sumberDanaTrashed = SumberDana::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+    //     return view('pages.tong-sampah-sumber-dana', compact('sumberDanaTrashed'));
+    // }
+
+    // public function pulihkanSumberDana($id = null)
+    // {
+    //     if($id != null) {
+    //         SumberDana::onlyTrashed()->where('id', $id)->restore();
+    //         return redirect()->route('tong-sampah-sumber-dana')->with('sukses', 'Data berhasil dipulihkan!');
+    //     }else {
+    //         SumberDana::onlyTrashed()->restore();
+    //         return redirect()->route('kelola-sumber-dana')->with('sukses', 'Data berhasil dipulihkan!');
+    //     }
+    // }
+
+    // public function hapusPermanenSumberDana($id = null)
+    // {
+    //     if($id != null) {
+    //         SumberDana::onlyTrashed()->where('id', $id)->forceDelete();
+    //         return redirect()->route('tong-sampah-sumber-dana')->with('sukses', 'Data berhasil dihapus secara permanen!');
+    //     } else {
+    //         SumberDana::onlyTrashed()->forceDelete();
+    //         return redirect()->route('kelola-sumber-dana')->with('sukses', 'Data berhasil dihapus secara permanen!');
+    //     }
+    // }
 
     public function view_kelolaBarang(Request $request, Ruangan $ruangan)
     {
@@ -372,10 +507,6 @@ class UsersController extends Controller
 
         if($request->filled('nama_barang')) {
             $barang->where('nama_barang', $request->nama_barang);
-        }
-
-        if($request->filled('sumber_dana_id')) {
-            $barang->where('sumber_dana_id', $request->sumber_dana_id);
         }
 
         if($request->filled('kondisi')) {
@@ -395,20 +526,14 @@ class UsersController extends Controller
     {
         // START: Check validasi
         $rules = [
-            'kode_barang' => 'required',
             'nama_barang' => 'required',
-            'jumlah' => 'required',
-            'satuan' => 'required',
-            'sumber_dana_id' => 'required',
+            'unit' => 'required',
             'kondisi' => 'required',
         ];
         $message = [
-            'kode_barang.required' => 'Kode barang harus diisi!',
             'nama_barang.required' => 'Nama barang harus diisi!',
-            'jumlah.required' => 'Jumlah barang harus diisi!',
-            'satuan.required' => 'Satuan barang harus diisi!',
-            'sumber_dana_id.required' => 'Sumber dana harus diisi!',
-            'kondisi.required' => 'Kondisi barang harus diisi!',
+            'unit.required' => 'Unit harus diisi!',
+            'kondisi.required' => 'Kondisi harus diisi!',
         ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
@@ -423,13 +548,11 @@ class UsersController extends Controller
 
                 // START: Simpan data ke database
                 Barang::create([
-                    'kode_barang' => $request->kode_barang,
                     'nama_barang' => $request->nama_barang,
                     'merek' => $request->merek,
-                    'jumlah' => $request->jumlah,
-                    'satuan' => $request->satuan,
-                    'sumber_dana_id' => $request->sumber_dana_id,
-                    'tahun_barang' => $request->tahun_barang,
+                    'no_reg' => $request->no_reg,
+                    'tahun' => $request->tahun,
+                    'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                     'image_url' => $fileName,
                     'ruangan_id' => $ruangan->id,
@@ -440,13 +563,11 @@ class UsersController extends Controller
             } else {
                 // START: Simpan data ke database
                 Barang::create([
-                    'kode_barang' => $request->kode_barang,
                     'nama_barang' => $request->nama_barang,
                     'merek' => $request->merek,
-                    'jumlah' => $request->jumlah,
-                    'satuan' => $request->satuan,
-                    'sumber_dana_id' => $request->sumber_dana_id,
-                    'tahun_barang' => $request->tahun_barang,
+                    'no_reg' => $request->no_reg,
+                    'tahun' => $request->tahun,
+                    'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                     'ruangan_id' => $ruangan->id,
                 ]);
@@ -488,14 +609,14 @@ class UsersController extends Controller
     {
         // START: Check validasi data
         $rules = [
-            'kode_barang' => 'required', 
-            'nama_barang' => 'required', 
-            'sumber_dana_id' => 'required',
+            'nama_barang' => 'required',
+            'unit' => 'required',
+            'kondisi' => 'required',
         ];
         $message = [
-            'kode_barang.required' => 'Kode barang harus diisi!',
             'nama_barang.required' => 'Nama barang harus diisi!',
-            'sumber_dana_id.required' => 'Sumber dana harus diisi!',
+            'unit.required' => 'Unit harus diisi!',
+            'kondisi.required' => 'Kondisi harus diisi!',
         ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi data
@@ -510,13 +631,11 @@ class UsersController extends Controller
 
                 // START: Simpan data ke database
                 $barang->update([
-                    'kode_barang' => $request->kode_barang,
                     'nama_barang' => $request->nama_barang,
                     'merek' => $request->merek,
-                    'jumlah' => $request->jumlah,
-                    'satuan' => $request->satuan,
-                    'sumber_dana_id' => $request->sumber_dana_id,
-                    'tahun_barang' => $request->tahun_barang,
+                    'no_reg' => $request->no_reg,
+                    'tahun' => $request->tahun,
+                    'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                     'image_url' => $fileName,
                 ]);
@@ -526,13 +645,11 @@ class UsersController extends Controller
             } else {
                 // START: Simpan data ke database
                 $barang->update([
-                    'kode_barang' => $request->kode_barang,
                     'nama_barang' => $request->nama_barang,
                     'merek' => $request->merek,
-                    'jumlah' => $request->jumlah,
-                    'satuan' => $request->satuan,
-                    'sumber_dana_id' => $request->sumber_dana_id,
-                    'tahun_barang' => $request->tahun_barang,
+                    'no_reg' => $request->no_reg,
+                    'tahun' => $request->tahun,
+                    'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                 ]);
                 // END: Simpan data ke database
@@ -735,7 +852,7 @@ class UsersController extends Controller
                 User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => bcrypt($request->password),
+                    'password' => Hash::make($request->password),
                     'image_url' => $fileName,
                     'role' => 1,
                     'remember_token' => Str::random(60),
@@ -746,7 +863,7 @@ class UsersController extends Controller
                 User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => bcrypt($request->password),
+                    'password' => Hash::make($request->password),
                     'role' => 1,
                     'remember_token' => Str::random(60),
                 ]);
@@ -934,6 +1051,26 @@ class UsersController extends Controller
         }
     }
 
+    public function view_ubahEmail(User $users)
+    {
+        return view('pages.ubah-email', compact('users'));
+    }
+
+    public function storeUbahEmail(Request $request, User $users)
+    {
+        $rules = ['email' => 'email|unique:users'];
+        $message = ['email.unique' => 'Email sudah digunakan!'];
+        $validate = $this->validate($request, $rules, $message);
+
+        if($validate){
+            $users->update([
+                'email' => $request->email,
+                'email_verified_at' => null
+            ]);
+            return redirect()->route('profile', $users->id)->with('sukses', 'Email anda berhasil diubah!');
+        }
+    }
+
     public function view_gantiPassword(User $users)
     {
         return view('pages.ganti-password', compact(['users']));
@@ -967,7 +1104,7 @@ class UsersController extends Controller
 
         if($validate) {
             $users->update([
-                'password' => bcrypt($request->password_baru)
+                'password' => Hash::make($request->password_baru)
             ]);
             return redirect()->route('profile', $users->id)->with('sukses', 'Password berhasil diganti!');
         }
@@ -991,6 +1128,6 @@ class UsersController extends Controller
 
     public function exportBarangExcel(Ruangan $ruangan)
     {
-        return Excel::download(new BarangExport($ruangan->id, $ruangan->nama_ruangan), 'Ekspor - ' .$ruangan->nama_ruangan. '.xlsx');
+        return Excel::download(new BarangExport($ruangan->id, $ruangan->nama_ruangan, $ruangan->guru_id), 'Ekspor - ' .$ruangan->nama_ruangan. '.xlsx');
     }
 }

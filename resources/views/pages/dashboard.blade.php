@@ -34,20 +34,20 @@
       <div
         class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500"
       >
-        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
       </div>
       <div>
         <p
           class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
         >
-          Ruangan
+          Jumlah Guru
         </p>
         <p
           class="text-lg font-semibold text-gray-700 dark:text-gray-200"
         >
-          {{ totalRuangan() }}
+          {{ totalGuru() }}
         </p>
       </div>
     </div>
@@ -58,20 +58,20 @@
       <div
         class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
       >
-        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
       </div>
       <div>
         <p
           class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
         >
-          Barang Baik
+          Jumlah Ruangan
         </p>
         <p
           class="text-lg font-semibold text-gray-700 dark:text-gray-200"
         >
-          {{ totalBarangBaik() }}
+          {{ totalRuangan() }}
         </p>
       </div>
     </div>
@@ -90,12 +90,12 @@
         <p
           class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
         >
-          Barang Rusak Ringan
+          Jumlah Barang <br /> Baik
         </p>
         <p
           class="text-lg font-semibold text-gray-700 dark:text-gray-200"
         >
-          {{ totalBarangRusakRingan() }}
+          {{ totalBarangBaik() }}
         </p>
       </div>
     </div>
@@ -114,12 +114,12 @@
       <p
         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
       >
-        Barang Rusak Berat
+        Jumlah Barang Rusak
       </p>
       <p
         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
       >
-        {{ totalBarangRusakBerat() }}
+        {{ totalBarangRusak() }}
       </p>
     </div>
   </div>

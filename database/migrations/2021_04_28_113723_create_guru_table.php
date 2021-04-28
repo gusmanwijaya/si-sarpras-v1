@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSumberDanaTable extends Migration
+class CreateGuruTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateSumberDanaTable extends Migration
      */
     public function up()
     {
-        Schema::create('sumber_dana', function (Blueprint $table) {
+        Schema::create('guru', function (Blueprint $table) {
             $table->id();
-            $table->string('sumber_dana');
+            $table->string('nama');
+            $table->string('nip')->nullable();
+            $table->string('golongan');
+            $table->longText('keterangan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +31,6 @@ class CreateSumberDanaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sumber_dana');
+        Schema::dropIfExists('guru');
     }
 }

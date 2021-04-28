@@ -20,18 +20,12 @@ class Barang extends Model
         'unit',
         'kondisi',
         'image_url',
-        'sumber_dana_id',
         'ruangan_id'
     ];
 
     public function getDeletedAtAttribute()
     {
         return Carbon::parse($this->attributes['deleted_at'])->translatedFormat('l, d F Y, H:i');
-    }
-
-    public function SumberDana()
-    {
-        return $this->belongsTo(SumberDana::class, 'sumber_dana_id', 'id');
     }
 
     public function Ruangan()
