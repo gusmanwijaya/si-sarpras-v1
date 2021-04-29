@@ -25,20 +25,19 @@
         </div>
         <div class="px-5 py-3">
           <h3 class="text-gray-700 dark:text-white uppercase">{{ $item->nama_barang }}</h3>
-          <span class="text-gray-500 mt-2">{{ $item->merek }} <br/> {{ $item->jumlah }} {{ $item->satuan }} - 
+          <span class="text-gray-500 mt-2">
+            Merek : @if($item->merek != null) {{ $item->merek }} @else - @endif <br/> 
+            No Reg : @if($item->no_reg != null) {{ $item->no_reg }} @else - @endif <br />
+            Tahun : @if($item->tahun != null) {{ $item->tahun }} @else - @endif <br />
+            Jumlah : @if($item->unit != null) {{ $item->unit }} @else - @endif <br />
+            Kondisi :  
             @if($item->kondisi == "Baik")
                 <span
                 class="px-2 py-1 leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                 >
                     {{ $item->kondisi }}
                 </span>
-                @elseif($item->kondisi == "Rusak Ringan")
-                <span
-                class="px-2 py-1 leading-tight text-yellow-700 bg-yellow-100 rounded-full dark:bg-yellow-700 dark:text-yellow-100"
-                >
-                    {{ $item->kondisi }}
-                </span>
-                @elseif($item->kondisi == "Rusak Berat")
+                @elseif($item->kondisi == "Rusak")
                 <span
                 class="px-2 py-1 leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100"
                 >

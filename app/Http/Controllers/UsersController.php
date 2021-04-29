@@ -778,37 +778,37 @@ class UsersController extends Controller
         }
     }
 
-    public function view_laporanBarang(Ruangan $ruangan)
+    public function view_laporanBarangPeruangan()
     {
-        return view('pages.laporan-barang', ['ruangan' => $ruangan]);
+        $ruangan = Ruangan::orderBy('nama_ruangan', 'asc')->paginate(6);
+        return view('pages.laporan-barang-peruangan', compact('ruangan'));
     }
 
-    public function print(Request $request, Ruangan $ruangan)
+    public function view_cetakLaporanBarangPeruangan(Ruangan $ruangan)
+    {
+        return view('pages.cetak-laporan-barang-peruangan', compact('ruangan'));
+    }
+
+    public function printLaporanBarangPeruangan(Request $request, Ruangan $ruangan)
     {
         $barang = Barang::query();
         $barang->where('ruangan_id', $ruangan->id);
         $tanggalNow = Carbon::now()->format('d');
         $bulanNow = Carbon::now()->format('F');
         $tahunNow = Carbon::now()->format('Y');
+        $guruPenanggungJawab = Guru::where('id', $ruangan->guru_id)->get();
 
-        if($request->filled('nama_barang')) {
-            $barang->where('nama_barang', $request->nama_barang);
+        if($request->filled('cetak')) {
+            $barang->where('kondisi', $request->cetak);
         }
 
-        if($request->filled('sumber_dana_id')) {
-            $barang->where('sumber_dana_id', $request->sumber_dana_id);
-        }
-
-        if($request->filled('kondisi')) {
-            $barang->where('kondisi', $request->kondisi);
-        }
-
-        return view('pages.print', [
+        return view('pages.print-laporan-barang-peruangan', [
             'barang' => $barang->get(), 
             'ruangan' => $ruangan, 
             'tanggalNow' => $tanggalNow,
             'bulanNow' => $bulanNow,
             'tahunNow' => $tahunNow,
+            'guruPenanggungJawab' => $guruPenanggungJawab
         ]);
     }
 

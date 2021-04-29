@@ -204,7 +204,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span class="ml-4">Cetak Laporan</span>
+          <span class="ml-4">Laporan Barang</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -230,11 +230,17 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
           aria-label="submenu"
         >
-        @foreach (ruanganSidebar() as $item)
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/'.$item->id) ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang', $item->id) }}">{{ $item->nama_ruangan }}</a>
+          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Peruangan</a>
         </li>
-        @endforeach
+
+        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Perangkatan (VII, VIII, IX)</a>
+        </li>
+
+        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+          <a class="w-full {{ request()->is('laporan-barang/semua-ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-semua-ruangan') }}">Semua Ruangan</a>
+        </li>
         </ul>
       </template>
     </li>
@@ -496,7 +502,7 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span class="ml-4">Cetak Laporan</span>
+          <span class="ml-4">Laporan Barang</span>
         </span>
         <svg
           class="w-4 h-4"
@@ -522,11 +528,19 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
           aria-label="submenu"
         >
-        @foreach (ruanganSidebar() as $item)
+
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/'.$item->id) ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang', $item->id) }}">{{ $item->nama_ruangan }}</a>
+          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Peruangan</a>
         </li>
-        @endforeach
+
+        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Perangkatan (VII, VIII, IX)</a>
+        </li>
+
+        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+          <a class="w-full {{ request()->is('laporan-barang/semua-ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-semua-ruangan') }}">Semua Ruangan</a>
+        </li>
+
         </ul>
       </template>
     </li>

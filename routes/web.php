@@ -43,8 +43,11 @@ Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     // END: Profile
 
     // START: Laporan
-    Route::get('/laporan-barang/{ruangan}', [UsersController::class, 'view_laporanBarang'])->name('laporan-barang');
-    Route::get('/print/{ruangan}', [UsersController::class, 'print'])->name('print');
+    Route::get('/laporan-barang/ruangan', [UsersController::class, 'view_laporanBarangPeruangan'])->name('laporan-barang-peruangan');
+    Route::get('/cetak-laporan-barang/ruangan/{ruangan}', [UsersController::class, 'view_cetakLaporanBarangPeruangan'])->name('cetak-laporan-barang-peruangan');
+    Route::get('/print-laporan-barang/ruangan/{ruangan}', [UsersController::class, 'printLaporanBarangPeruangan'])->name('print-laporan-barang-peruangan');
+    Route::get('/laporan-barang/angkatan', [UsersController::class, 'view_laporanBarangPerangkatan'])->name('laporan-barang-perangkatan');
+    Route::get('/laporan-barang/semua-ruangan', [UsersController::class, 'view_laporanBarangSemuaRuangan'])->name('laporan-barang-semua-ruangan');
     // END: Laporan
 
     // START: Kelola ruangan
