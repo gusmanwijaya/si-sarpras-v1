@@ -73,8 +73,15 @@ class UsersController extends Controller
     public function storeRuangan(Request $request)
     {
         // START: Check validasi
-        $rules = ['nama_ruangan' => 'required', 'guru_id' => 'required'];
-        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!', 'guru_id.required' => 'Penanggung jawab ruangan harus dipilih!'];
+        $rules = [
+            'nama_ruangan' => 'required', 
+            'guru_id' => 'required|unique:ruangan'
+        ];
+        $message = [
+            'nama_ruangan.required' => 'Nama ruangan harus diisi!', 
+            'guru_id.required' => 'Penanggung jawab ruangan harus dipilih!',
+            'guru_id.unique' => 'Penanggung jawab sudah ada!'
+        ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
 
@@ -160,8 +167,12 @@ class UsersController extends Controller
     public function storeEditRuangan(Request $request, Ruangan $ruangan)
     {
         // START: Check validasi
-        $rules = ['nama_ruangan' => 'required', 'guru_id' => 'required'];
-        $message = ['nama_ruangan.required' => 'Nama ruangan harus diisi!', 'guru_id.required' => 'Penanggung jawab ruangan harus dipilih!'];
+        $rules = [
+            'nama_ruangan' => 'required',
+        ];
+        $message = [
+            'nama_ruangan.required' => 'Nama ruangan harus diisi!',
+        ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
 
@@ -178,7 +189,6 @@ class UsersController extends Controller
                     'kode_ruangan' => $request->kode_ruangan,
                     'nama_ruangan' => $request->nama_ruangan,
                     'image_url' => $fileName,
-                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil diubah!');
@@ -187,11 +197,37 @@ class UsersController extends Controller
                 $ruangan->update([
                     'kode_ruangan' => $request->kode_ruangan,
                     'nama_ruangan' => $request->nama_ruangan,
-                    'guru_id' => $request->guru_id
                 ]);
                 // END: Simpan data ke database
                 return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil diubah!');
             }
+        }
+    }
+
+    public function view_ubahPenanggungJawabRuangan(Ruangan $ruangan)
+    {
+        return view('pages.ubah-penanggung-jawab-ruangan', compact('ruangan'));
+    }
+
+    public function storeUbahPenanggungJawabRuangan(Request $request, Ruangan $ruangan)
+    {
+        // START: Check validasi
+        $rules = [
+            'guru_id' => 'required|unique:ruangan',
+        ];
+        $message = [
+            'guru_id.required' => 'Penanggung jawab ruangan harus diisi!',
+            'guru_id.unique' => 'Penanggung jawab ruangan sudah ada!',
+        ];
+        $validate = $this->validate($request, $rules, $message);
+        // END: Check validasi
+
+        if($validate){
+            $ruangan->update([
+                'guru_id' => $request->guru_id
+            ]);
+
+            return redirect()->route('edit-ruangan', $ruangan->id)->with('sukses', 'Penanggung jawab ruangan berhasil diubah!');
         }
     }
 

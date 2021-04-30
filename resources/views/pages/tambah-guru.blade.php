@@ -13,8 +13,6 @@
         @csrf
         <div class="flex justify-center mx-auto flex-1">
             <div class='w-full md:w-full px-3 space-y-3'>
-                <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for='nama'>Tambah Data Guru</label>
-
                 <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nama') is-invalid @enderror' id='nama' name="nama" type='text' value="{{ old('nama') }}" placeholder="Masukkan nama guru">
                 @error('nama')
                 <span class="text-xs text-red-600 dark:text-red-400">
@@ -30,7 +28,7 @@
                 @enderror
 
                 <div class="flex-shrink w-full inline-block relative">
-                    <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
+                    <select class="block appearance-none text-gray-400 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
                         <option value="">Pilih golongan</option>
                         <option value="Honor" {{ old('golongan') == "Honor" ? 'selected' : '' }}>Honor</option>
 
@@ -65,7 +63,7 @@
                 </span>
                 @enderror
 
-                <textarea class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('keterangan') is-invalid @enderror' id='keterangan' name="keterangan" type='text' value="{{ old('keterangan') }}" placeholder="Masukkan keterangan guru"></textarea>
+                <textarea class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('keterangan') is-invalid @enderror' id='keterangan' name="keterangan" type='text' placeholder="Masukkan keterangan guru">{{ old('keterangan') }}</textarea>
                 @error('keterangan')
                 <span class="text-xs text-red-600 dark:text-red-400">
                     {{ $message }}
@@ -75,7 +73,17 @@
             </div>
         </div>
 
-        <div class="flex justify-start ml-3">
+        <div class="flex justify-start ml-3 space-x-3">
+            <a
+            href="{{ route('kelola-guru') }}"
+            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent border border-cool-gray-400 rounded-lg hover:border-cool-gray-500 hover:text-cool-gray-500 focus:outline-none"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                <span>Kembali</span>
+            </a>
+
             <button
             type="submit"
             class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-400 border border-transparent rounded-lg active:bg-blue-500 hover:bg-blue-500 focus:outline-none"

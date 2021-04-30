@@ -116,12 +116,14 @@
                 <div
                     class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
                 >
-                    <select class="block appearance-none text-gray-600 w-full bg-white dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 px-4 py-2 pr-8 rounded focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('guru_id') is-invalid @enderror" name="guru_id" id="guru_id">
+                <a href="#" class="ubahPenanggungJawab" ruangan-id="{{ $ruangan->id }}">
+                    <select class="block appearance-none text-gray-600 w-full bg-white dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 px-4 py-2 pr-8 rounded focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray cursor-pointer @error('guru_id') is-invalid @enderror" name="guru_id" id="guru_id" disabled>
                         <option value="">Pilih Penanggung Jawab</option>
                         @foreach (guru() as $guru)
                             <option value="{{ $guru->id }}" {{ $ruangan->guru_id == $guru->id ? 'selected' : '' }}>{{ $guru->nama }}</option>
                         @endforeach
                     </select>
+                </a>
                     <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
@@ -161,6 +163,28 @@
 @endsection
 
 @push('after-script')
+{{-- START: Ubah Penanggung Jawab --}}
+<script>
+    $('.ubahPenanggungJawab').click(function(){
+      var ruanganId = $(this).attr('ruangan-id');
+      swal({
+        title: "Ubah Penanggung Jawab",
+        text: "Apakah anda yakin ingin mengubah penanggung jawab ruangan ini?",
+        icon: "warning",
+        buttons: ["Jangan Ubah", "Ubah"],
+        dangerMode: true,
+        closeOnClickOutside: false,
+      }).then((willDelete) => {
+        if (willDelete) {
+          window.location = "/ubah-penanggung-jawab-ruangan/"+ruanganId+"";
+        } else {
+          swal("Penanggung Jawab tidak jadi diubah.");
+        }
+      });
+    });
+  </script>
+{{-- END: Ubah Penanggung Jawab --}}
+
 {{-- START: Delete --}}
 <script>
     $('.deleteFoto').click(function(){

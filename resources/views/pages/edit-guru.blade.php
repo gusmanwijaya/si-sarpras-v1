@@ -13,8 +13,6 @@
         @csrf
         <div class="flex justify-center mx-auto flex-1">
             <div class='w-full md:w-full px-3 space-y-3'>
-                <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2'>Edit Data Guru</label>
-
                 <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nama') is-invalid @enderror' id='nama' name="nama" type='text' value="{{ $guru->nama }}" placeholder="Masukkan nama guru">
                 @error('nama')
                 <span class="text-xs text-red-600 dark:text-red-400">
@@ -30,7 +28,7 @@
                 @enderror
 
                 <div class="flex-shrink w-full inline-block relative">
-                    <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
+                    <select class="block appearance-none text-gray-800 dark:text-gray-50 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
                         <option value="">Pilih golongan</option>
                         <option value="Honor" {{ $guru->golongan == "Honor" ? 'selected' : '' }}>Honor</option>
 

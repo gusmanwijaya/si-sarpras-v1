@@ -96,6 +96,8 @@ Route::middleware(['auth', 'checkRole:1', 'verified'])->group(function () {
     Route::get('/destroy-semua-ruangan', [UsersController::class, 'destroySemuaRuangan'])->name('destroy-semua-ruangan');
     Route::get('/edit-ruangan/{ruangan}', [UsersController::class, 'view_editRuangan'])->name('edit-ruangan');
     Route::post('/store-edit-ruangan/{ruangan}', [UsersController::class, 'storeEditRuangan'])->name('store-edit-ruangan');
+    Route::get('/ubah-penanggung-jawab-ruangan/{ruangan}', [UsersController::class, 'view_ubahPenanggungJawabRuangan'])->name('ubah-penanggung-jawab-ruangan');
+    Route::post('/store-ubah-penanggung-jawab-ruangan/{ruangan}', [UsersController::class, 'storeUbahPenanggungJawabRuangan'])->name('store-ubah-penanggung-jawab-ruangan');
     Route::get('/tong-sampah/ruangan', [UsersController::class, 'view_tongSampahRuangan'])->name('tong-sampah-ruangan');
     Route::get('/pulihkan-ruangan/{id?}/{img?}', [UsersController::class, 'pulihkanRuangan'])->name('pulihkan-ruangan');
     Route::get('/hapus-permanen-ruangan/{id?}/{img?}', [UsersController::class, 'hapusPermanenRuangan'])->name('hapus-permanen-ruangan');
