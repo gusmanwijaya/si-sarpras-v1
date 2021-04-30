@@ -9,7 +9,7 @@
     <div class="flex flex-row justify-between items-center">
         <div class="flex flex-row">
             <a
-                href="{{ route('kelola-barang') }}"
+                href="{{ route('kelola-barang', $ruangan->id) }}"
                 class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent rounded-lg hover:text-cool-gray-500 focus:outline-none"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,9 +52,9 @@
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Kode Barang</th>
                         <th class="px-4 py-3">Nama Barang</th>
-                        <th class="px-4 py-3">Jumlah (Satuan)</th>
+                        <th class="px-4 py-3">Jumlah</th>
+                        <th class="px-4 py-3">Kondisi</th>
                         <th class="px-4 py-3">Dihapus Pada</th>
                         <th class="px-4 py-3">Aksi</th>
                     </tr>
@@ -67,9 +67,9 @@
                     <td class="px-4 py-3">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-4 py-3 text-sm">{{ $barang->kode_barang }}</td>
                     <td class="px-4 py-3 text-sm">{{ $barang->nama_barang }}</td>
-                    <td class="px-4 py-3 text-sm">{{ $barang->jumlah }} ({{ $barang->satuan }})</td>
+                    <td class="px-4 py-3 text-sm">{{ $barang->unit }}</td>
+                    <td class="px-4 py-3 text-sm">{{ $barang->kondisi }}</td>
                     <td class="px-4 py-3 text-sm">{{ $barang->getDeletedAtAttribute() }}</td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">

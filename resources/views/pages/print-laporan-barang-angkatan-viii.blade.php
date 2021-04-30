@@ -1,7 +1,7 @@
 @extends('layouts.print')
 
 @section('title')
-    Print Laporan Barang Peruangan - Sistem Informasi Sarana dan Prasarana
+    Print Laporan Barang Angkatan VIII - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
@@ -35,17 +35,6 @@
         </p>
     
         <br>
-
-        <p class="text-left text-sm font-medium leading-5">Penanggung Jawab Ruang     : 
-            @foreach ($guruPenanggungJawab as $item)
-                {{ $item->nama }}
-            @endforeach
-            
-            <br/>
-            
-            Gedung/Ruang : {{ $ruangan->nama_ruangan }}
-            
-        </p> <br />
     
         <table class="table-auto relative border-collapse border border-gray-500 w-full mx-auto">
             <thead class="text-center">
@@ -57,6 +46,7 @@
                     <th class="border border-gray-500">Tahun</th>
                     <th class="border border-gray-500">Unit</th>
                     <th class="border border-gray-500">Kondisi</th>
+                    <th class="border border-gray-500">Ruangan</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -69,12 +59,12 @@
                         <td class="border border-gray-500">{{ $item->tahun }}</td>
                         <td class="border border-gray-500">{{ $item->unit }}</td>
                         <td class="border border-gray-500">{{ $item->kondisi }}</td>
+                        <td class="border border-gray-500">{{ $item->nama_ruangan }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     
-        <br/>
         <br/>
         <br/>
         <br/>
@@ -99,37 +89,15 @@
                 <table class="table-auto">
                     <tr>
                         <th class="w-80">Bengkulu, {{ $tanggalNow }} {{ $bulanNow }} {{ $tahunNow }} <br/>
-                            Penanggung Jawab Ruang</th>
+                            Kepala</th>
                     </tr>
                     <tr>
                         <th class="w-80 h-48">
-                            @foreach ($guruPenanggungJawab as $item)
-                                {{ $item->nama }} <br />
-                                NIP. {{ $item->nip }}
-                            @endforeach
+                            Eza Avlenda, S.Pd., M.Si <br />
+                            NIP. 19790406 200312 2 002
                         </th>
                     </tr>
                 </table>
-            </div>
-
-        </div>
-
-        <div class="flex flex-row justify-center">
-
-            <div class="flex flex-col">
-                <p class="font-bold">
-                    Mengetahui <br />
-                    Kepala
-                </p>
-    
-                <br />
-                <br />
-                <br />
-    
-                <p class="font-bold">
-                    Eza Avlenda, S.Pd., M.Si <br />
-                    NIP. 19790406 200312 2 002
-                </p>
             </div>
 
         </div>

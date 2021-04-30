@@ -13,16 +13,21 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
 
+    // START: Dashboard
     public function view_dashboard()
     {
         return view('pages.dashboard');
     }
+    // END: Dashboard
 
+
+    // START: Ruangan
     public function view_kelolaRuangan(Request $request)
     {
         if($request->has('cari')) {
@@ -271,7 +276,10 @@ class UsersController extends Controller
             return redirect()->route('kelola-ruangan')->with('sukses', 'Ruangan berhasil dihapus secara permanen!');
         }
     }
+    // END: Ruangan
 
+
+    // START: Guru
     public function view_kelolaGuru(Request $request)
     {
         if($request->has('cari')) {
@@ -321,15 +329,11 @@ class UsersController extends Controller
     public function storeGuru(Request $request) {
         $rules = [
             'nama' => 'required|string',
-            'nip' => 'string',
             'golongan' => 'required|string',
-            'keterangan' => 'string'
         ];
 
         $message = [
             'nama.required' => 'Nama harus diisi!',
-            'nip.string' => 'NIP harus berupa angka!',
-            'keterangan.string' => 'Keterangan harus berupa huruf atau angka!',
             'golongan.required' => 'Golongan harus diisi!'
         ];
 
@@ -353,15 +357,11 @@ class UsersController extends Controller
     public function storeEditGuru(Request $request, Guru $guru) {
         $rules = [
             'nama' => 'required|string',
-            'nip' => 'string',
             'golongan' => 'required|string',
-            'keterangan' => 'string'
         ];
 
         $message = [
             'nama.required' => 'Nama harus diisi!',
-            'nip.string' => 'NIP harus berupa angka!',
-            'keterangan.string' => 'Keterangan harus berupa huruf atau angka!',
             'golongan.required' => 'Golongan harus diisi!'
         ];
 
@@ -402,7 +402,10 @@ class UsersController extends Controller
             return redirect()->route('kelola-guru')->with('sukses', 'Data berhasil dihapus secara permanen!');
         }
     }
+    // END: Guru
 
+
+    // START: Sumber Dana
     // public function view_kelolaSumberDana()
     // {
     //     $dataSumberDana = SumberDana::orderBy('sumber_dana', 'asc')->paginate(5);
@@ -498,7 +501,10 @@ class UsersController extends Controller
     //         return redirect()->route('kelola-sumber-dana')->with('sukses', 'Data berhasil dihapus secara permanen!');
     //     }
     // }
+    // END: Sumber Dana
 
+
+    // START: Barang
     public function view_kelolaBarang(Request $request, Ruangan $ruangan)
     {
         // Eloquent
@@ -725,6 +731,8 @@ class UsersController extends Controller
             }else{
                 Barang::where('ruangan_id', $ruangan->id)->onlyTrashed()->where('id', $id)->restore();
             }
+
+            return redirect()->route('tong-sampah-barang', $ruangan->id)->with('sukses', 'Barang berhasil dipulihkan!');
         }else{
             $barangTrashed = Barang::where('ruangan_id', $ruangan->id)->onlyTrashed()->get()->count();
             if($barangTrashed < 1) {
@@ -777,7 +785,10 @@ class UsersController extends Controller
             return redirect()->route('kelola-barang', $ruangan->id)->with('sukses', 'Barang berhasil dihapus secara permanen!');
         }
     }
+    // END: Barang
 
+
+    // START: Laporan Barang Peruangan
     public function view_laporanBarangPeruangan()
     {
         $ruangan = Ruangan::orderBy('nama_ruangan', 'asc')->paginate(6);
@@ -811,7 +822,138 @@ class UsersController extends Controller
             'guruPenanggungJawab' => $guruPenanggungJawab
         ]);
     }
+    // END: Laporan Barang Peruangan
 
+
+    // START: Laporan Barang Perangkatan
+    public function view_laporanBarangPerangkatan()
+    {
+        return view('pages.laporan-barang-perangkatan');
+    }
+
+
+    // START: VII
+    public function view_cetakLaporanBarangAngkatanVII()
+    {
+        return view('pages.cetak-laporan-barang-angkatan-vii');
+    }
+
+    public function printLaporanBarangAngkatanVII(Request $request)
+    {
+        $tanggalNow = Carbon::now()->format('d');
+        $bulanNow = Carbon::now()->format('F');
+        $tahunNow = Carbon::now()->format('Y');
+
+        $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->where('nama_ruangan', 'LIKE', '%VII__')
+                    ->orderBy('nama_ruangan', 'asc');
+
+        if($request->filled('cetak')) {
+            $barang->where('kondisi', $request->cetak);
+        }
+
+        return view('pages.print-laporan-barang-angkatan-vii', [
+            'barang' => $barang->get(),
+            'tanggalNow' => $tanggalNow,
+            'bulanNow' => $bulanNow,
+            'tahunNow' => $tahunNow
+        ]);
+    }
+    // END: VII
+
+
+    // START: VIII
+    public function view_cetakLaporanBarangAngkatanVIII()
+    {
+        return view('pages.cetak-laporan-barang-angkatan-viii');
+    }
+
+    public function printLaporanBarangAngkatanVIII(Request $request)
+    {
+        $tanggalNow = Carbon::now()->format('d');
+        $bulanNow = Carbon::now()->format('F');
+        $tahunNow = Carbon::now()->format('Y');
+
+        $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->where('nama_ruangan', 'LIKE', '%VIII__')
+                    ->orderBy('nama_ruangan', 'asc');
+
+        if($request->filled('cetak')) {
+            $barang->where('kondisi', $request->cetak);
+        }
+
+        return view('pages.print-laporan-barang-angkatan-viii', [
+            'barang' => $barang->get(),
+            'tanggalNow' => $tanggalNow,
+            'bulanNow' => $bulanNow,
+            'tahunNow' => $tahunNow
+        ]);
+    }
+    // END: VIII
+
+
+    // START: IX
+    public function view_cetakLaporanBarangAngkatanIX()
+    {
+        return view('pages.cetak-laporan-barang-angkatan-ix');
+    }
+
+    public function printLaporanBarangAngkatanIX(Request $request)
+    {
+        $tanggalNow = Carbon::now()->format('d');
+        $bulanNow = Carbon::now()->format('F');
+        $tahunNow = Carbon::now()->format('Y');
+
+        $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->where('nama_ruangan', 'LIKE', '%IX__')
+                    ->orderBy('nama_ruangan', 'asc');
+
+        if($request->filled('cetak')) {
+            $barang->where('kondisi', $request->cetak);
+        }
+
+        return view('pages.print-laporan-barang-angkatan-ix', [
+            'barang' => $barang->get(),
+            'tanggalNow' => $tanggalNow,
+            'bulanNow' => $bulanNow,
+            'tahunNow' => $tahunNow
+        ]);
+    }
+    // END: IX
+
+    // END: Laporan Barang Perangkatan
+
+
+    // START: Laporan Barang Semua Ruangan
+    public function view_laporanBarangSemuaRuangan()
+    {
+        $dataBarang = Barang::orderBy('ruangan_id', 'asc')->paginate(10);
+        return view('pages.laporan-barang-semua-ruangan', compact('dataBarang'));
+    }
+
+    public function printLaporanBarangSemuaRuangan(Request $request)
+    {
+        $barang = Barang::query();
+        $barang->orderBy('ruangan_id', 'asc');
+        $tanggalNow = Carbon::now()->format('d');
+        $bulanNow = Carbon::now()->format('F');
+        $tahunNow = Carbon::now()->format('Y');
+
+        if($request->filled('cetak')) {
+            $barang->where('kondisi', $request->cetak);
+        }
+
+        return view('pages.print-laporan-barang-semua-ruangan', [
+            'barang' => $barang->get(),
+            'tanggalNow' => $tanggalNow,
+            'bulanNow' => $bulanNow,
+            'tahunNow' => $tahunNow
+        ]);
+    }
+    // END: Laporan Barang Semua Ruangan
+
+
+    // START: Pengguna (Users)
     public function view_pengguna()
     {
         $users = User::where('role', 1)->orderBy('name', 'asc')->paginate(5);
@@ -990,7 +1132,10 @@ class UsersController extends Controller
             return redirect()->route('pengguna')->with('sukses', 'Pengguna berhasil dihapus secara permanen!');
         }
     }
+    // END: Pengguna (Users)
 
+
+    // START: Profile Setiap Pengguna
     public function view_profile(User $users)
     {
         return view('pages.profile-users', compact(['users']));
@@ -1050,7 +1195,10 @@ class UsersController extends Controller
             }
         }
     }
+    // END: Profile Setiap Pengguna
 
+
+    // START: Ganti Email
     public function view_ubahEmail(User $users)
     {
         return view('pages.ubah-email', compact('users'));
@@ -1070,7 +1218,10 @@ class UsersController extends Controller
             return redirect()->route('profile', $users->id)->with('sukses', 'Email anda berhasil diubah!');
         }
     }
+    // END: Ganti Email
 
+
+    // START: Ganti Password
     public function view_gantiPassword(User $users)
     {
         return view('pages.ganti-password', compact(['users']));
@@ -1109,7 +1260,10 @@ class UsersController extends Controller
             return redirect()->route('profile', $users->id)->with('sukses', 'Password berhasil diganti!');
         }
     }
+    // END: Ganti Password
 
+
+    // START: Quick Response (QR) Code
     public function view_QRCode(Ruangan $ruangan)
     {
         return view('pages.qrcode', compact(['ruangan']));
@@ -1125,9 +1279,14 @@ class UsersController extends Controller
         $barang = Barang::where('ruangan_id', $ruangan->id)->orderBy('nama_barang', 'asc')->get();
         return view('pages.scan-qrcode', compact(['barang', 'ruangan']));
     }
+    // END: Quick Response (QR) Code
 
+
+    // START: Export Data Barang ke Excel (.xlsx)
     public function exportBarangExcel(Ruangan $ruangan)
     {
         return Excel::download(new BarangExport($ruangan->id, $ruangan->nama_ruangan, $ruangan->guru_id), 'Ekspor - ' .$ruangan->nama_ruangan. '.xlsx');
     }
+    // END: Export Data Barang ke Excel (.xlsx)
+
 }

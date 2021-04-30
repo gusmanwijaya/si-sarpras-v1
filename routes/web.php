@@ -46,8 +46,19 @@ Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     Route::get('/laporan-barang/ruangan', [UsersController::class, 'view_laporanBarangPeruangan'])->name('laporan-barang-peruangan');
     Route::get('/cetak-laporan-barang/ruangan/{ruangan}', [UsersController::class, 'view_cetakLaporanBarangPeruangan'])->name('cetak-laporan-barang-peruangan');
     Route::get('/print-laporan-barang/ruangan/{ruangan}', [UsersController::class, 'printLaporanBarangPeruangan'])->name('print-laporan-barang-peruangan');
+
     Route::get('/laporan-barang/angkatan', [UsersController::class, 'view_laporanBarangPerangkatan'])->name('laporan-barang-perangkatan');
+
+    Route::get('/cetak-laporan-barang/angkatan/vii', [UsersController::class, 'view_cetakLaporanBarangAngkatanVII'])->name('cetak-laporan-barang-angkatan-vii');
+    Route::get('/cetak-laporan-barang/angkatan/viii', [UsersController::class, 'view_cetakLaporanBarangAngkatanVIII'])->name('cetak-laporan-barang-angkatan-viii');
+    Route::get('/cetak-laporan-barang/angkatan/ix', [UsersController::class, 'view_cetakLaporanBarangAngkatanIX'])->name('cetak-laporan-barang-angkatan-ix');
+
+    Route::get('/print-laporan-barang/angkatan/vii', [UsersController::class, 'printLaporanBarangAngkatanVII'])->name('print-laporan-barang-angkatan-vii');
+    Route::get('/print-laporan-barang/angkatan/viii', [UsersController::class, 'printLaporanBarangAngkatanVIII'])->name('print-laporan-barang-angkatan-viii');
+    Route::get('/print-laporan-barang/angkatan/ix', [UsersController::class, 'printLaporanBarangAngkatanIX'])->name('print-laporan-barang-angkatan-ix');
+
     Route::get('/laporan-barang/semua-ruangan', [UsersController::class, 'view_laporanBarangSemuaRuangan'])->name('laporan-barang-semua-ruangan');
+    Route::get('/print-laporan-barang/semua-ruangan', [UsersController::class, 'printLaporanBarangSemuaRuangan'])->name('print-laporan-barang-semua-ruangan');
     // END: Laporan
 
     // START: Kelola ruangan

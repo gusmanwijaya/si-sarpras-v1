@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Cetak Laporan Barang Peruangan - Sistem Informasi Sarana dan Prasarana
+    Cetak Laporan Barang Angkatan VIII - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="flex flex-row justify-between items-center">
                 <div class="flex flex-row md:pl-10">
                     <a
-                        href="{{ route('laporan-barang-peruangan') }}"
+                        href="{{ route('laporan-barang-perangkatan') }}"
                         class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-cool-gray-400 transition-colors duration-150 bg-transparent rounded-lg hover:text-cool-gray-500 focus:outline-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 -ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,18 +21,16 @@
                 </div>
         
                 <div class="flex flex-col">
-                    <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Cetak Laporan Barang Peruangan</h3>
+                    <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Cetak Laporan Barang Angkatan VIII</h3>
                     <h6 class="mt-1 text-center text-xs text-gray-600">Kelola barang dengan sebaik mungkin.</h6>
                 </div>
         
                 <div class="flex flex-row container w-16"></div>
             </div>
 
-            <p class="text-base text-center font-medium my-8 text-gray-600 dark:text-white">Ruangan : {{ $ruangan->nama_ruangan }}</p>
+            <div class="flex flex-col container mx-auto mt-8">
 
-            <div class="flex flex-col container mx-auto">
-
-                <form action="{{ route('print-laporan-barang-peruangan', $ruangan->id) }}" target="_blank" method="GET">
+                <form action="{{ route('print-laporan-barang-angkatan-viii') }}" target="_blank" method="GET">
                     
                     <div class='w-full md:w-1/2 px-14 mb-4'>
                         <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for="cetak">Cetak :</label>
