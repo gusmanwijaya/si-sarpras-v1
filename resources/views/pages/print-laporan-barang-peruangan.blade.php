@@ -73,11 +73,8 @@
                 @endforeach
             </tbody>
         </table>
-    
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+
+        <br />
 
         <div class="flex flex-row justify-between">
 
@@ -98,7 +95,20 @@
             <div class="flex items-end justify-end">
                 <table class="table-auto">
                     <tr>
-                        <th class="w-80">Bengkulu, {{ $tanggalNow }} {{ $bulanNow }} {{ $tahunNow }} <br/>
+                        <th class="w-80">Bengkulu, {{ $tanggalNow }} 
+                            {{ $bulanNow == 'January' ? 'Januari' : '' }}
+                            {{ $bulanNow == 'February' ? 'Februari' : '' }}
+                            {{ $bulanNow == 'March' ? 'Maret' : '' }}
+                            {{ $bulanNow == 'April' ? 'April' : '' }}
+                            {{ $bulanNow == 'May' ? 'Mei' : '' }}
+                            {{ $bulanNow == 'June' ? 'Juni' : '' }}
+                            {{ $bulanNow == 'July' ? 'Juli' : '' }}
+                            {{ $bulanNow == 'August' ? 'Agustus' : '' }}
+                            {{ $bulanNow == 'September' ? 'September' : '' }}
+                            {{ $bulanNow == 'October' ? 'Oktober' : '' }}
+                            {{ $bulanNow == 'November' ? 'November' : '' }}
+                            {{ $bulanNow == 'December' ? 'Desember' : '' }}
+                            {{ $tahunNow }} <br/>
                             Penanggung Jawab Ruang</th>
                     </tr>
                     <tr>
@@ -114,10 +124,25 @@
 
         </div>
 
+        @if($barang->count() > 10 && $barang->count() < 14)
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        @elseif($barang->count() >= 14)
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        @endif
+
         <div class="flex flex-row justify-center">
 
-            <div class="flex flex-col">
-                <p class="font-bold">
+            <div class="flex flex-col pb-48">
+                <p class="font-bold text-center">
                     Mengetahui <br />
                     Kepala
                 </p>
@@ -126,7 +151,7 @@
                 <br />
                 <br />
     
-                <p class="font-bold">
+                <p class="font-bold text-center">
                     Eza Avlenda, S.Pd., M.Si <br />
                     NIP. 19790406 200312 2 002
                 </p>

@@ -6,7 +6,7 @@ use App\Models\Guru;
 
 function ruanganSidebar()
 {
-    $ruanganSidebar = Ruangan::orderBy('nama_ruangan', 'asc')->get();
+    $ruanganSidebar = Ruangan::orderBy('id', 'asc')->get();
     return $ruanganSidebar;
 }
 

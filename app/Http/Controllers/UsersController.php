@@ -33,7 +33,7 @@ class UsersController extends Controller
         if($request->has('cari')) {
             $ruangan = Ruangan::where('nama_ruangan', 'LIKE', '%' .$request->cari. '%')->paginate(8);
         }else {
-            $ruangan = Ruangan::orderBy('nama_ruangan', 'asc')->paginate(8);
+            $ruangan = Ruangan::orderBy('id', 'asc')->paginate(8);
         }
 
         return view('pages.kelola-ruangan', compact(['ruangan']));
@@ -827,7 +827,7 @@ class UsersController extends Controller
     // START: Laporan Barang Peruangan
     public function view_laporanBarangPeruangan()
     {
-        $ruangan = Ruangan::orderBy('nama_ruangan', 'asc')->paginate(6);
+        $ruangan = Ruangan::orderBy('id', 'asc')->paginate(6);
         return view('pages.laporan-barang-peruangan', compact('ruangan'));
     }
 

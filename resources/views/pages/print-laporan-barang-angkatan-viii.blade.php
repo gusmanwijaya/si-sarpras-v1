@@ -66,8 +66,6 @@
         </table>
     
         <br/>
-        <br/>
-        <br/>
 
         <div class="flex flex-row justify-between">
 
@@ -88,7 +86,20 @@
             <div class="flex items-end justify-end">
                 <table class="table-auto">
                     <tr>
-                        <th class="w-80">Bengkulu, {{ $tanggalNow }} {{ $bulanNow }} {{ $tahunNow }} <br/>
+                        <th class="w-80">Bengkulu, {{ $tanggalNow }} 
+                            {{ $bulanNow == 'January' ? 'Januari' : '' }}
+                            {{ $bulanNow == 'February' ? 'Februari' : '' }}
+                            {{ $bulanNow == 'March' ? 'Maret' : '' }}
+                            {{ $bulanNow == 'April' ? 'April' : '' }}
+                            {{ $bulanNow == 'May' ? 'Mei' : '' }}
+                            {{ $bulanNow == 'June' ? 'Juni' : '' }}
+                            {{ $bulanNow == 'July' ? 'Juli' : '' }}
+                            {{ $bulanNow == 'August' ? 'Agustus' : '' }}
+                            {{ $bulanNow == 'September' ? 'September' : '' }}
+                            {{ $bulanNow == 'October' ? 'Oktober' : '' }}
+                            {{ $bulanNow == 'November' ? 'November' : '' }}
+                            {{ $bulanNow == 'December' ? 'Desember' : '' }} 
+                            {{ $tahunNow }} <br/>
                             Kepala</th>
                     </tr>
                     <tr>
