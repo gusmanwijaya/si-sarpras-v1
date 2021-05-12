@@ -1006,14 +1006,14 @@ class UsersController extends Controller
         $rules = [
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'min:6|confirmed',
+            'password' => 'min:8|confirmed',
         ];
 
         $message = [
             'name.required' => 'Nama lengkap harus diisi!',
             'email.required' => 'Email address harus diisi!',
             'unique' => 'Email sudah terdaftar!',
-            'password.min' => 'Password minimal 6 karakter!',
+            'password.min' => 'Password minimal 8 karakter!',
             'password.confirmed' => 'Password tidak sama dengan konfirmasi password!'
         ];
 
@@ -1275,7 +1275,7 @@ class UsersController extends Controller
 
         $rules = [
             'password_lama' => 'required',
-            'password_baru' => 'required|string|min:6',
+            'password_baru' => 'required|string|min:8',
             'password_konfirmasi' => 'same:password_baru',
         ];
 
@@ -1283,7 +1283,7 @@ class UsersController extends Controller
             'password_lama.required' => 'Password lama harus diisi!',
             'password_baru.required' => 'Password baru harus diisi!',
             'password_baru.string' => 'Password baru harus berupa karakter, huruf atau angka!',
-            'password_baru.min' => 'Password baru minimal 6 karakter!',
+            'password_baru.min' => 'Password baru minimal 8 karakter!',
             'password_konfirmasi.same' => 'Password baru dan konfirmasi password tidak sama!',
         ];
 
