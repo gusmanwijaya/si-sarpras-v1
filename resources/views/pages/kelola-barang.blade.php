@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('title')
-    Kelola Barang - Sistem Informasi Sarana dan Prasarana
+    Data Barang - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
     <!-- START: Cart -->
     <section class="py-8">
         <div class="container mx-auto px-4">
-            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Barang {{ $ruangan->nama_ruangan }}</h3>
-            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola barang dengan sebaik mungkin.</h6>
+            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Data Barang {{ $ruangan->nama_ruangan }}</h3>
+            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola data barang dengan sebaik mungkin.</h6>
 
             <hr class="my-4 border-gray-600"/>
 
@@ -17,17 +17,17 @@
               <label class="text-gray-800 dark:text-gray-50 text-sm ml-3">Filter berdasarkan</label>
               <div class="flex flex-row items-center justify-between mt-2">
                 <div class='w-full md:w-1/2 px-3'>
-                    <div class="flex-shrink w-full inline-block relative">
-                        <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
-                            <option value="">Nama Barang</option>
-                            @foreach(filterBarang($ruangan->id) as $data)
-                            <option value="{{ $data->nama_barang }}">{{ $data->nama_barang }}</option>
-                            @endforeach
-                        </select>
-                        <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                        </div>
-                    </div>
+                  <div class="flex-shrink w-full inline-block relative">
+                      <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
+                          <option value="">Nama Barang</option>
+                          @foreach(filterBarang($ruangan->id) as $data)
+                          <option value="{{ $data->nama_barang }}">{{ $data->nama_barang }}</option>
+                          @endforeach
+                      </select>
+                      <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
+                          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                      </div>
+                  </div>
                 </div>
 
                 <div class='w-full md:w-1/2 px-3'>
@@ -64,8 +64,8 @@
                   </svg>
                   <span>Refresh</span>
                 </a>
-
               </div>
+
             </form>
 
           <hr class="mt-4 border-gray-600"/>
@@ -111,7 +111,7 @@
                   <svg class="w-4 h-4 mr-1 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
-                  <span>Tong Sampah</span>
+                  <span>Sampah</span>
                 </a>
               </div>
             </div>
@@ -153,11 +153,11 @@
                     <span>Ekspor (.xlsx)</span>
                 </a>
 
-                <a href="{{ route('tong-sampah-barang', $ruangan->id) }}" class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-tight text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none">
+                <a href="{{ route('tong-sampah-barang', $ruangan->id) }}" class="flex items-center justify-center px-4 py-2 text-sm font-medium leading-tight text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none">
                   <svg class="w-4 h-4 mr-1 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
-                  <span>Tong Sampah</span>
+                  <span>Sampah</span>
                 </a>
               </div>
 

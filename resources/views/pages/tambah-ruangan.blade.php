@@ -104,7 +104,7 @@
                 <div
                     class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400"
                 >
-                    <select class="block appearance-none text-gray-600 w-full bg-white dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 px-4 py-2 pr-8 rounded focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('guru_id') is-invalid @enderror" name="guru_id" id="guru_id">
+                    <select class="block appearance-none text-gray-500 w-full bg-white dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 px-4 py-2 pr-8 rounded focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('guru_id') is-invalid @enderror" name="guru_id" id="guru_id">
                         <option value="">Pilih Penanggung Jawab</option>
                         @foreach (guru() as $guru)
                             <option value="{{ $guru->id }}" {{ old('guru_id') == $guru->id ? 'selected' : '' }}>{{ $guru->nama }}</option>

@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('title')
-    Pengguna - Sistem Informasi Sarana dan Prasarana
+    Data Pengguna - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
     <!-- START: Cart -->
     <section class="py-8">
         <div class="container mx-auto px-4">
-            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Pengguna</h3>
-            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola pengguna dengan sebaik mungkin.</h6>
+            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Data Pengguna</h3>
+            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola data pengguna dengan sebaik mungkin.</h6>
             
             <div class="mt-4 md:ml-11">
               {{-- START: Tombol medium screen --}}
@@ -44,7 +44,7 @@
                     <svg class="w-4 h-4 mr-1 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
-                    <span>Tong Sampah</span>
+                    <span>Sampah</span>
                   </a>
                 </div>
               </div>
@@ -77,12 +77,12 @@
                 <div class="flex flex-row">
                   <a
                     href="{{ route('tong-sampah-pengguna') }}"
-                    class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none"
+                    class="flex items-center justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-400 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none"
                     >
                       <svg class="w-4 h-4 mr-1 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
-                      <span>Tong Sampah</span>
+                      <span>Sampah</span>
                     </a>
                 </div>
               </div>

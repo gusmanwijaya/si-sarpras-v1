@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('title')
-    Laporan Barang Perangkatan - Sistem Informasi Sarana dan Prasarana
+    Laporan Barang Berdasarkan Angkatan - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
     <section class="py-8">
         <div class="container mx-auto px-4">
 
-            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Laporan Barang Perangkatan</h3>
-            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola barang dengan sebaik mungkin.</h6>
+            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Laporan Barang Berdasarkan Angkatan</h3>
+            <h6 class="mt-1 mb-2 text-center text-xs text-gray-600">Kelola data barang dengan sebaik mungkin.</h6>
 
             <div class="py-4 flex flex-wrap items-center justify-center">
     

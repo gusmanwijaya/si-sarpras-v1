@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Tong Sampah Pengguna - Sistem Informasi Sarana dan Prasarana
+    Sampah Pengguna - Sistem Informasi Sarana dan Prasarana
 @endsection
 
 @section('content')
@@ -19,8 +19,8 @@
         </div>
 
         <div class="flex flex-col">
-            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Tong Sampah Pengguna</h3>
-            <h6 class="mt-1 text-center text-xs text-gray-600">Tong sampah berisi data yang dihapus sementara, anda bisa memulihkan atau menghapusnya secara permanen.</h6>
+            <h3 class="text-gray-800 text-2xl font-medium text-center dark:text-gray-50">Sampah Pengguna</h3>
+            <h6 class="mt-1 text-center text-xs text-gray-600">Sampah berisi data yang dihapus sementara, anda bisa memulihkan atau menghapusnya secara permanen.</h6>
         </div>
 
         <div class="flex flex-row container w-16"></div>

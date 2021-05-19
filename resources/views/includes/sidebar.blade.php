@@ -231,11 +231,11 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
           aria-label="submenu"
         >
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Peruangan</a>
+          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Berdasarkan Ruangan</a>
         </li>
 
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Perangkatan (VII, VIII, IX)</a>
+          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Berdasarkan Angkatan</a>
         </li>
 
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -530,11 +530,11 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
         >
 
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Peruangan</a>
+          <a class="w-full {{ request()->is('laporan-barang/ruangan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-peruangan') }}">Berdasarkan Ruangan</a>
         </li>
 
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Perangkatan (VII, VIII, IX)</a>
+          <a class="w-full {{ request()->is('laporan-barang/angkatan') ? 'text-gray-800 dark:text-gray-200' : '' }}" href="{{ route('laporan-barang-perangkatan') }}">Berdasarkan Angkatan</a>
         </li>
 
         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
