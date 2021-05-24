@@ -19,7 +19,7 @@
                             <a href="{{ route('cetak-laporan-barang-peruangan', $item->id) }}">
                                 <div class="bg-white relative shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
                                     @if($item->image_url != null)
-                                        <img src="{{ asset('storage/unggah/Ruangan/'.$item->image_url) }}" class="h-32 rounded-lg w-full object-cover">
+                                        <img src="{{ asset('storage/unggah/Ruangan/'.$item->image_url) }}" class="h-56 rounded-lg w-full object-cover">
                                     @else
                                         <img src="{{ asset('img/404.png') }}" class="h-56 rounded-lg w-full object-cover">
                                     @endif
