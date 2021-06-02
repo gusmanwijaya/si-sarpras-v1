@@ -116,18 +116,6 @@ Route::middleware(['auth', 'checkRole:1', 'verified'])->group(function () {
     Route::get('/hapus-permanen-barang/{ruangan}/{id?}/{img?}', [UsersController::class, 'hapusPermanenBarang'])->name('hapus-permanen-barang');
     // END: Kelola Barang
 
-    // START: Kelola Sumber Dana
-    // Route::get('/kelola-sumber-dana', [UsersController::class, 'view_kelolaSumberDana'])->name('kelola-sumber-dana');
-    // Route::get('/destroy-sumber-dana/{sumberDana}', [UsersController::class, 'destroySumberDana'])->name('destroy-sumber-dana');
-    // Route::get('/destroy-semua-sumber-dana', [UsersController::class, 'destroySemuaSumberDana'])->name('destroy-semua-sumber-dana');
-    // Route::post('/store-sumber-dana', [UsersController::class, 'storeSumberDana'])->name('store-sumber-dana');
-    // Route::get('/edit-sumber-dana/{sumberDana}', [UsersController::class, 'view_editSumberDana'])->name('edit-sumber-dana');
-    // Route::post('/store-edit-sumber-dana/{sumberDana}', [UsersController::class, 'storeEditSumberDana'])->name('store-edit-sumber-dana');
-    // Route::get('/tong-sampah/sumber-dana', [UsersController::class, 'view_tongSampahSumberDana'])->name('tong-sampah-sumber-dana');
-    // Route::get('/pulihkan-sumber-dana/{id?}', [UsersController::class, 'pulihkanSumberDana'])->name('pulihkan-sumber-dana');
-    // Route::get('/hapus-permanen-sumber-dana/{id?}', [UsersController::class, 'hapusPermanenSumberDana'])->name('hapus-permanen-sumber-dana');
-    // END: Kelola Sumber Dana
-
     // START: Data Guru
     Route::get('/kelola-guru', [UsersController::class, 'view_kelolaGuru'])->name('kelola-guru');
     Route::get('/destroy-guru/{guru}', [UsersController::class, 'destroyGuru'])->name('destroy-guru');

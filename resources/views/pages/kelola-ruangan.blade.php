@@ -159,7 +159,9 @@
     @endforeach
   </div>
 
-  {{ $ruangan->links() }}
+  @if(!request()->has('cari'))
+    {{ $ruangan->links() }}
+  @endif
 
   @if($ruangan->count() < 1)
   <div class="flex flex-col items-center justify-center">

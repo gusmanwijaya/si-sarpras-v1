@@ -31,7 +31,9 @@ class UsersController extends Controller
     public function view_kelolaRuangan(Request $request)
     {
         if($request->has('cari')) {
-            $ruangan = Ruangan::where('nama_ruangan', 'LIKE', '%' .$request->cari. '%')->paginate(8);
+            $ruangan = Ruangan::where('nama_ruangan', 'LIKE', '%' .$request->cari. '%')
+                ->orWhere('kode_ruangan', 'LIKE', '%' .$request->cari. '%')
+                ->get();
         }else {
             $ruangan = Ruangan::orderBy('id', 'asc')->paginate(8);
         }
@@ -319,7 +321,11 @@ class UsersController extends Controller
     public function view_kelolaGuru(Request $request)
     {
         if($request->has('cari')) {
-            $dataGuru = Guru::where('nama', 'LIKE', '%' .$request->cari. '%')->paginate(5);
+            $dataGuru = Guru::where('nama', 'LIKE', '%' .$request->cari. '%')
+                ->orWhere('nip', 'LIKE', '%' .$request->cari. '%')
+                ->orWhere('golongan', 'LIKE', '%' .$request->cari. '%')
+                ->orWhere('keterangan', 'LIKE', '%' .$request->cari. '%')
+                ->get();
         }else {
             $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(5);
         }
@@ -366,11 +372,13 @@ class UsersController extends Controller
         $rules = [
             'nama' => 'required|string',
             'golongan' => 'required|string',
+            'nip' => 'unique:guru'
         ];
 
         $message = [
             'nama.required' => 'Nama harus diisi!',
-            'golongan.required' => 'Golongan harus diisi!'
+            'golongan.required' => 'Golongan harus diisi!',
+            'nip.unique' => 'NIP sudah ada!'
         ];
 
         $validate = $this->validate($request, $rules, $message);

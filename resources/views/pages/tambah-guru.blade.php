@@ -13,23 +13,18 @@
         @csrf
         <div class="flex justify-center mx-auto flex-1">
             <div class='w-full md:w-full px-3 space-y-3'>
-                <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nama') is-invalid @enderror' id='nama' name="nama" type='text' value="{{ old('nama') }}" placeholder="Masukkan nama guru">
+                <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for='nama'>Nama Guru</label>
+                <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nama') is-invalid @enderror' id='nama' name="nama" type='text' value="{{ old('nama') }}">
                 @error('nama')
                 <span class="text-xs text-red-600 dark:text-red-400">
                     {{ $message }}
                 </span>
                 @enderror
 
-                <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nip') is-invalid @enderror' id='nip' name="nip" type='text' value="{{ old('nip') }}" placeholder="Masukkan NIP guru">
-                @error('nip')
-                <span class="text-xs text-red-600 dark:text-red-400">
-                    {{ $message }}
-                </span>
-                @enderror
-
                 <div class="flex-shrink w-full inline-block relative">
-                    <select class="block appearance-none text-gray-400 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
-                        <option value="">Pilih golongan</option>
+                    <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for='golongan'>Golongan</label>
+                    <select class="block appearance-none text-gray-800 w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none @error('golongan') is-invalid @enderror" name="golongan" id="golongan">
+                        <option value="" hidden></option>
                         <option value="Honor" {{ old('golongan') == "Honor" ? 'selected' : '' }}>Honor</option>
 
                         <option value="I/a" {{ old('golongan') == "I/a" ? 'selected' : '' }}>I/a</option>
@@ -53,7 +48,7 @@
                         <option value="IV/d" {{ old('golongan') == "IV/d" ? 'selected' : '' }}>IV/d</option>
                         <option value="IV/e" {{ old('golongan') == "IV/e" ? 'selected' : '' }}>IV/e</option>
                     </select>
-                    <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
+                    <div class="pointer-events-none absolute top-6 mt-3 right-0 flex items-center px-2 text-gray-600">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
@@ -63,7 +58,18 @@
                 </span>
                 @enderror
 
-                <textarea class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('keterangan') is-invalid @enderror' id='keterangan' name="keterangan" type='text' placeholder="Masukkan keterangan guru">{{ old('keterangan') }}</textarea>
+                <div id="divnip">
+                    <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for='nip'>NIP</label>
+                    <input class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('nip') is-invalid @enderror' id='nip' name="nip" type='text' value="{{ old('nip') }}">
+                    @error('nip')
+                    <span class="text-xs text-red-600 dark:text-red-400">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+
+                <label class='block uppercase tracking-wide text-gray-800 dark:text-gray-50 text-xs font-bold mb-2' for='keterangan'>Keterangan</label>
+                <textarea class='appearance-none block w-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none focus:border-gray-700 @error('keterangan') is-invalid @enderror' id='keterangan' name="keterangan" type='text'>{{ old('keterangan') }}</textarea>
                 @error('keterangan')
                 <span class="text-xs text-red-600 dark:text-red-400">
                     {{ $message }}
@@ -98,3 +104,19 @@
 
 </div>
 @endsection
+
+@push('after-script')
+    <script>
+        $("#golongan").on("change", function() {
+            var getGolongan = $("#golongan").val();
+            var divnip = document.getElementById("divnip");
+
+            if(getGolongan == "Honor"){
+                $("#nip").val(null);
+                divnip.classList.add('class', 'hidden');
+            }else{
+                divnip.classList.remove('class', 'hidden');
+            }
+        });
+    </script>
+@endpush

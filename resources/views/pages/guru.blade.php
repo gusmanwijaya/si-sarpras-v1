@@ -194,7 +194,9 @@
                 </tbody>
             </table>
 
-            {{ $dataGuru->links() }}
+            @if (!request()->has('cari'))
+              {{ $dataGuru->links() }}
+            @endif
 
             @if($dataGuru->count() < 1)
             <div class="flex flex-col items-center justify-center">
@@ -210,40 +212,40 @@
 
 @push('after-script')
 <script>
-    $('.deleteGuru').click(function(){
-      var guruId = $(this).attr('guru-id');
-      var guruNama = $(this).attr('guru-nama');
-      swal({
-        title: "Hapus Guru",
-        text: "Apakah anda yakin ingin menghapus "+guruNama+" ?",
-        icon: "warning",
-        buttons: ["Jangan Hapus", "Hapus"],
-        dangerMode: true,
-        closeOnClickOutside: false,
-      }).then((willDelete) => {
-        if (willDelete) {
-          window.location = "/destroy-guru/"+guruId+"";
-        } else {
-          swal(""+guruNama+" tidak jadi dihapus.");
-        }
-      });
+  $('.deleteGuru').click(function(){
+    var guruId = $(this).attr('guru-id');
+    var guruNama = $(this).attr('guru-nama');
+    swal({
+      title: "Hapus Guru",
+      text: "Apakah anda yakin ingin menghapus "+guruNama+" ?",
+      icon: "warning",
+      buttons: ["Jangan Hapus", "Hapus"],
+      dangerMode: true,
+      closeOnClickOutside: false,
+    }).then((willDelete) => {
+      if (willDelete) {
+        window.location = "/destroy-guru/"+guruId+"";
+      } else {
+        swal(""+guruNama+" tidak jadi dihapus.");
+      }
     });
+  });
 
-    $('.deleteSemuaGuru').click(function(){
-      swal({
-        title: "Hapus Semua Guru",
-        text: "Apakah anda yakin ingin menghapus semua guru?",
-        icon: "warning",
-        buttons: ["Jangan Hapus", "Hapus"],
-        dangerMode: true,
-        closeOnClickOutside: false,
-      }).then((willDelete) => {
-        if (willDelete) {
-          window.location = "/destroy-semua-guru";
-        } else {
-          swal("Semua guru tidak jadi dihapus.");
-        }
-      });
+  $('.deleteSemuaGuru').click(function(){
+    swal({
+      title: "Hapus Semua Guru",
+      text: "Apakah anda yakin ingin menghapus semua guru?",
+      icon: "warning",
+      buttons: ["Jangan Hapus", "Hapus"],
+      dangerMode: true,
+      closeOnClickOutside: false,
+    }).then((willDelete) => {
+      if (willDelete) {
+        window.location = "/destroy-semua-guru";
+      } else {
+        swal("Semua guru tidak jadi dihapus.");
+      }
     });
+  });
 </script>
 @endpush

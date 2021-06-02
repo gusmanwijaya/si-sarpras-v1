@@ -35,14 +35,14 @@ function totalRuangan()
 
 function totalBarangBaik()
 {
-    $barangBaik = Barang::where('kondisi', 'Baik')->get();
-    return $barangBaik->count();
+    $barangBaik = Barang::where('kondisi', 'Baik')->select('unit')->get();
+    return collect($barangBaik)->sum('unit');
 }
 
 function totalBarangRusak()
 {
-    $barangRusa = Barang::where('kondisi', 'Rusak')->get();
-    return $barangRusa->count();
+    $barangRusak = Barang::where('kondisi', 'Rusak')->select('unit')->get();
+    return collect($barangRusak)->sum('unit');
 }
 
 ?>
