@@ -1012,16 +1012,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.44.0",
+            "version": "v8.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7b3b27dc8911ab02a69731af2ba97b5130b2ddb8"
+                "reference": "dc2f0bb02c3eb4b27669d626bb3e810db8e7749d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7b3b27dc8911ab02a69731af2ba97b5130b2ddb8",
-                "reference": "7b3b27dc8911ab02a69731af2ba97b5130b2ddb8",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dc2f0bb02c3eb4b27669d626bb3e810db8e7749d",
+                "reference": "dc2f0bb02c3eb4b27669d626bb3e810db8e7749d",
                 "shasum": ""
             },
             "require": {
@@ -1103,7 +1103,7 @@
                 "orchestra/testbench-core": "^6.8",
                 "pda/pheanstalk": "^4.0",
                 "phpunit/phpunit": "^8.5.8|^9.3.3",
-                "predis/predis": "^1.1.1",
+                "predis/predis": "^1.1.2",
                 "symfony/cache": "^5.1.4"
             },
             "suggest": {
@@ -1176,7 +1176,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-05-27T16:46:06+00:00"
+            "time": "2021-06-03T16:39:17+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1558,23 +1558,23 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.30",
+            "version": "3.1.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "aa5d2e4d25c5c8218ea0a15103da95f5f8728953"
+                "reference": "cbe6370af70f93bd017f77ef92d32bd492a47fcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/aa5d2e4d25c5c8218ea0a15103da95f5f8728953",
-                "reference": "aa5d2e4d25c5c8218ea0a15103da95f5f8728953",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/cbe6370af70f93bd017f77ef92d32bd492a47fcb",
+                "reference": "cbe6370af70f93bd017f77ef92d32bd492a47fcb",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "illuminate/support": "5.8.*|^6.0|^7.0|^8.0",
                 "php": "^7.0|^8.0",
-                "phpoffice/phpspreadsheet": "1.16.*"
+                "phpoffice/phpspreadsheet": "^1.18"
             },
             "require-dev": {
                 "orchestra/testbench": "^6.0",
@@ -1620,7 +1620,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Maatwebsite/Laravel-Excel/issues",
-                "source": "https://github.com/Maatwebsite/Laravel-Excel/tree/3.1.30"
+                "source": "https://github.com/Maatwebsite/Laravel-Excel/tree/3.1.31"
             },
             "funding": [
                 {
@@ -1632,7 +1632,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-06T17:17:02+00:00"
+            "time": "2021-06-02T17:31:29+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -2246,16 +2246,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.16.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "76d4323b85129d0c368149c831a07a3e258b2b50"
+                "reference": "418cd304e8e6b417ea79c3b29126a25dc4b1170c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/76d4323b85129d0c368149c831a07a3e258b2b50",
-                "reference": "76d4323b85129d0c368149c831a07a3e258b2b50",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/418cd304e8e6b417ea79c3b29126a25dc4b1170c",
+                "reference": "418cd304e8e6b417ea79c3b29126a25dc4b1170c",
                 "shasum": ""
             },
             "require": {
@@ -2274,20 +2274,23 @@
                 "ext-zlib": "*",
                 "ezyang/htmlpurifier": "^4.13",
                 "maennchen/zipstream-php": "^2.1",
-                "markbaker/complex": "^1.5||^2.0",
-                "markbaker/matrix": "^1.2||^2.0",
-                "php": "^7.2||^8.0",
+                "markbaker/complex": "^2.0",
+                "markbaker/matrix": "^2.0",
+                "php": "^7.2 || ^8.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0"
             },
             "require-dev": {
-                "dompdf/dompdf": "^0.8.5",
-                "friendsofphp/php-cs-fixer": "^2.16",
+                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+                "dompdf/dompdf": "^1.0",
+                "friendsofphp/php-cs-fixer": "^2.18",
                 "jpgraph/jpgraph": "^4.0",
                 "mpdf/mpdf": "^8.0",
                 "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^8.5||^9.3",
+                "phpstan/phpstan": "^0.12.82",
+                "phpstan/phpstan-phpunit": "^0.12.18",
+                "phpunit/phpunit": "^8.5",
                 "squizlabs/php_codesniffer": "^3.5",
                 "tecnickcom/tcpdf": "^6.3"
             },
@@ -2341,9 +2344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.16.0"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.18.0"
             },
-            "time": "2020-12-31T18:03:49+00:00"
+            "time": "2021-05-31T18:21:15+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -5781,16 +5784,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.9.0",
+            "version": "2.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "e7db3b601ce742568b92648818ef903904d20164"
+                "reference": "508d80f91de953617977e5666f8953669b6e81f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/e7db3b601ce742568b92648818ef903904d20164",
-                "reference": "e7db3b601ce742568b92648818ef903904d20164",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/508d80f91de953617977e5666f8953669b6e81f2",
+                "reference": "508d80f91de953617977e5666f8953669b6e81f2",
                 "shasum": ""
             },
             "require": {
@@ -5854,7 +5857,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-05-05T06:45:12+00:00"
+            "time": "2021-06-03T21:41:42+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -5976,16 +5979,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.12.1",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "c13c0be93cff50f88bbd70827d993026821914dd"
+                "reference": "2edbc73a4687d9085c8f20f398eebade844e8424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/c13c0be93cff50f88bbd70827d993026821914dd",
-                "reference": "c13c0be93cff50f88bbd70827d993026821914dd",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/2edbc73a4687d9085c8f20f398eebade844e8424",
+                "reference": "2edbc73a4687d9085c8f20f398eebade844e8424",
                 "shasum": ""
             },
             "require": {
@@ -6035,7 +6038,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.12.1"
+                "source": "https://github.com/filp/whoops/tree/2.13.0"
             },
             "funding": [
                 {
@@ -6043,7 +6046,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-25T12:00:00+00:00"
+            "time": "2021-06-04T12:00:00+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -7030,16 +7033,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.4",
+            "version": "9.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c73c6737305e779771147af66c96ca6a7ed8a741"
+                "reference": "89ff45ea9d70e35522fb6654a2ebc221158de276"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c73c6737305e779771147af66c96ca6a7ed8a741",
-                "reference": "c73c6737305e779771147af66c96ca6a7ed8a741",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/89ff45ea9d70e35522fb6654a2ebc221158de276",
+                "reference": "89ff45ea9d70e35522fb6654a2ebc221158de276",
                 "shasum": ""
             },
             "require": {
@@ -7069,7 +7072,7 @@
                 "sebastian/global-state": "^5.0.1",
                 "sebastian/object-enumerator": "^4.0.3",
                 "sebastian/resource-operations": "^3.0.3",
-                "sebastian/type": "^2.3",
+                "sebastian/type": "^2.3.2",
                 "sebastian/version": "^3.0.2"
             },
             "require-dev": {
@@ -7117,7 +7120,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.4"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.5"
             },
             "funding": [
                 {
@@ -7129,7 +7132,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-23T07:16:29+00:00"
+            "time": "2021-06-05T04:49:07+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7988,16 +7991,16 @@
         },
         {
             "name": "sebastian/type",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "81cd61ab7bbf2de744aba0ea61fae32f721df3d2"
+                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/81cd61ab7bbf2de744aba0ea61fae32f721df3d2",
-                "reference": "81cd61ab7bbf2de744aba0ea61fae32f721df3d2",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/0d1c587401514d17e8f9258a27e23527cb1b06c1",
+                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1",
                 "shasum": ""
             },
             "require": {
@@ -8032,7 +8035,7 @@
             "homepage": "https://github.com/sebastianbergmann/type",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/2.3.1"
+                "source": "https://github.com/sebastianbergmann/type/tree/2.3.2"
             },
             "funding": [
                 {
@@ -8040,7 +8043,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-26T13:18:59+00:00"
+            "time": "2021-06-04T13:02:07+00:00"
         },
         {
             "name": "sebastian/version",
@@ -8155,5 +8158,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

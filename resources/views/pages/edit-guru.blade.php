@@ -109,22 +109,22 @@
     <script>
         $(document).ready(function() {
             var getGolongan = $("#golongan").val();
-            var divnip = document.getElementById("divnip");
+            var divnip = $("#divnip");
             if(getGolongan == "Honor"){
-                divnip.classList.add('class', 'hidden');
+                divnip.slideUp();
             }else{
-                divnip.classList.remove('class', 'hidden');
+                divnip.slideDown();
             }
         });
 
         $("#golongan").on("change", function() {
             var getGolongan = $("#golongan").val();
-            var divnip = document.getElementById("divnip");
+            var divnip = $("#divnip");
             if(getGolongan == "Honor"){
                 $("#nip").val(null);
-                divnip.classList.add('class', 'hidden');
+                divnip.slideUp();
             }else{
-                divnip.classList.remove('class', 'hidden');
+                divnip.slideDown();
             }
         });
     </script>

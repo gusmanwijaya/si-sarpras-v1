@@ -323,11 +323,9 @@ class UsersController extends Controller
         if($request->has('cari')) {
             $dataGuru = Guru::where('nama', 'LIKE', '%' .$request->cari. '%')
                 ->orWhere('nip', 'LIKE', '%' .$request->cari. '%')
-                ->orWhere('golongan', 'LIKE', '%' .$request->cari. '%')
-                ->orWhere('keterangan', 'LIKE', '%' .$request->cari. '%')
                 ->get();
         }else {
-            $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(5);
+            $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(10);
         }
 
         return view('pages.guru', compact('dataGuru'));
