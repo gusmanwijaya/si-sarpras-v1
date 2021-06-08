@@ -8,13 +8,13 @@
 <img
     aria-hidden="true"
     class="object-cover w-full h-full dark:hidden"
-    src="{{ asset('img/login.png') }}"
+    src="{{ asset('img/sekolah.jpg') }}"
     alt="Office"
 />
 <img
     aria-hidden="true"
     class="hidden object-cover w-full h-full dark:block"
-    src="{{ asset('img/login-dark.png') }}"
+    src="{{ asset('img/sekolah.jpg') }}"
     alt="Office"
 />
 @endsection
