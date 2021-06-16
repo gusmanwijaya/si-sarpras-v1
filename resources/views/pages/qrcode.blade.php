@@ -11,7 +11,7 @@
 
     <div class="flex flex-col justify-center items-center mt-16 space-y-10">
         <div class="visible-print text-center">
-            {!! QrCode::size(300)->generate('http://192.168.100.59:8888/si-sarpras-v1/public/scan-qrcode/'.$ruangan->id); !!}
+            {!! QrCode::size(300)->generate('http://192.168.0.5:8888/si-sarpras-v1/public/scan-qrcode/'.$ruangan->id); !!}
         </div>
 
         <a
