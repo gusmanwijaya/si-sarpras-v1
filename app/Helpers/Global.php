@@ -3,6 +3,7 @@
 use App\Models\Ruangan;
 use App\Models\Barang;
 use App\Models\Guru;
+use App\Models\Kategori;
 
 function ruanganSidebar()
 {
@@ -15,6 +16,12 @@ function filterBarang($id)
     $ruangan = Ruangan::find($id);
     $barang = Barang::where('ruangan_id', $ruangan->id)->orderBy('nama_barang', 'asc')->get('nama_barang');
     return $barang;
+}
+
+function kategoriBarang()
+{
+    $kategoriBarang = Kategori::orderBy('kategori', 'asc')->get();
+    return $kategoriBarang;
 }
 
 function guru()

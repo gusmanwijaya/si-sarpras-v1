@@ -20,6 +20,7 @@ class Barang extends Model
         'unit',
         'kondisi',
         'image_url',
+        'kategori_id',
         'ruangan_id'
     ];
 
@@ -31,5 +32,10 @@ class Barang extends Model
     public function Ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'ruangan_id', 'id');
+    }
+
+    public function Kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
     }
 }

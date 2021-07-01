@@ -22,10 +22,6 @@ Route::post('/store-login', [AuthController::class, 'storeLogin'])->name('store-
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // END: Login
 
-// START: Scan QR Code untuk melihat data barang di setiap ruangan
-Route::get('/scan-qrcode/{ruangan}', [UsersController::class, 'view_scanQRCode'])->name('scan-qrcode');
-// END: Scan QR Code untuk melihat data barang di setiap ruangan
-
 // START: Route Admin && Operator
 Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     // START: Dashboard
@@ -68,6 +64,10 @@ Route::middleware(['auth', 'checkRole:0,1', 'verified'])->group(function () {
     // START: Kelola barang
     Route::get('/kelola-barang/{ruangan}', [UsersController::class, 'view_kelolaBarang'])->name('kelola-barang');
     // END: Kelola barang
+
+    // START: Scan QR Code untuk melihat data barang di setiap ruangan
+    Route::get('/scan-qrcode/{ruangan}', [UsersController::class, 'view_scanQRCode'])->name('scan-qrcode');
+    // END: Scan QR Code untuk melihat data barang di setiap ruangan
 });
 // END: Route Admin && Operator
 
@@ -102,6 +102,19 @@ Route::middleware(['auth', 'checkRole:1', 'verified'])->group(function () {
     Route::get('/pulihkan-ruangan/{id?}/{img?}', [UsersController::class, 'pulihkanRuangan'])->name('pulihkan-ruangan');
     Route::get('/hapus-permanen-ruangan/{id?}/{img?}', [UsersController::class, 'hapusPermanenRuangan'])->name('hapus-permanen-ruangan');
     // END: Kelola Ruangan
+
+    // START: Kategori Barang
+    Route::get('/kelola-kategori-barang', [UsersController::class, 'view_kategoriBarang'])->name('kelola-kategori-barang');
+    Route::get('/destroy-kategori-barang/{kategori}', [UsersController::class, 'destroyKategoriBarang'])->name('destroy-kategori-barang');
+    Route::get('/destroy-semua-kategori-barang', [UsersController::class, 'destroySemuaKategoriBarang'])->name('destroy-semua-kategori-barang');
+    Route::get('/tambah-kategori-barang', [UsersController::class, 'view_tambahKategoriBarang'])->name('tambah-kategori-barang');
+    Route::post('/store-kategori-barang', [UsersController::class, 'storeKategoriBarang'])->name('store-kategori-barang');
+    Route::get('/edit-kategori-barang/{kategori}', [UsersController::class, 'view_editKategoriBarang'])->name('edit-kategori-barang');
+    Route::post('/store-edit-kategori-barang/{kategori}', [UsersController::class, 'storeEditKategoriBarang'])->name('store-edit-kategori-barang');
+    Route::get('/tong-sampah/kategori-barang', [UsersController::class, 'view_tongSampahKategoriBarang'])->name('tong-sampah-kategori-barang');
+    Route::get('/pulihkan-kategori-barang/{id?}', [UsersController::class, 'pulihkanKategoriBarang'])->name('pulihkan-kategori-barang');
+    Route::get('/hapus-permanen-kategori-barang/{id?}', [UsersController::class, 'hapusPermanenKategoriBarang'])->name('hapus-permanen-kategori-barang');
+    // END: Kategori Barang
 
     // START: Kelola Barang
     Route::get('/kelola-barang/{ruangan}/{barang}', [UsersController::class, 'view_editBarang'])->name('edit-barang');

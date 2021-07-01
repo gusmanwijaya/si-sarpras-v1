@@ -42,6 +42,7 @@
                     <th class="border border-gray-500">No</th>
                     <th class="border border-gray-500">Nama Barang</th>
                     <th class="border border-gray-500">Merek</th>
+                    <th class="border border-gray-500">Kategori</th>
                     <th class="border border-gray-500">No Reg</th>
                     <th class="border border-gray-500">Tahun</th>
                     <th class="border border-gray-500">Unit</th>
@@ -55,6 +56,7 @@
                         <td class="border border-gray-500">{{ $loop->iteration }}</td>
                         <td class="border border-gray-500">{{ $item->nama_barang }}</td>
                         <td class="border border-gray-500">{{ $item->merek }}</td>
+                        <td class="border border-gray-500">{{ $item->Kategori->kategori }}</td>
                         <td class="border border-gray-500">{{ $item->no_reg }}</td>
                         <td class="border border-gray-500">{{ $item->tahun }}</td>
                         <td class="border border-gray-500">{{ $item->unit }}</td>
@@ -65,7 +67,11 @@
             </tbody>
         </table>
     
-        <br/>
+        <br />
+        @if ($barang->count() >= 27)
+            <br />
+            <br />
+        @endif
 
         <div class="flex flex-row justify-between">
 

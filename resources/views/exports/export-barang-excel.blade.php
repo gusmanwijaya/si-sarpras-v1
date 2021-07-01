@@ -19,6 +19,7 @@
             <th>No</th>
             <th>Nama Barang</th>
             <th>Merek/Type</th>
+            <th>Kategori</th>
             <th>No. Reg</th>
             <th>Tahun</th>
             <th>Unit</th>
@@ -31,6 +32,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->nama_barang }}</td>
                 <td>{{ $item->merek }}</td>
+                <td>{{ $item->Kategori->kategori }}</td>
                 <td>{{ $item->no_reg }}</td>
                 <td>{{ $item->tahun }}</td>
                 <td>{{ $item->unit }}</td>

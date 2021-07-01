@@ -141,6 +141,24 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
       </a>
     </li>
 
+    @if (auth()->user()->role == 1)
+      <li class="relative px-6 py-3">
+        @if (request()->is('kelola-kategori-barang'))
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
+          ></span>
+        @endif
+        <a
+          class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ request()->is('kelola-kategori-barang') ? 'text-gray-800 dark:text-gray-200' : '' }}"
+          href="{{ route('kelola-kategori-barang') }}"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+        </svg>
+          <span class="ml-4">Data Kategori Barang</span>
+        </a>
+      </li>
+    @endif
+
     <li class="relative px-6 py-3">
       <button
         class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none"
@@ -436,6 +454,24 @@ x-transition:leave-end="opacity-0 transform -translate-x-20"
         <span class="ml-4">Data Ruangan</span>
       </a>
     </li>
+
+    @if (auth()->user()->role == 1)
+      <li class="relative px-6 py-3">
+        @if (request()->is('kelola-kategori-barang'))
+          <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"
+          ></span>
+        @endif
+        <a
+          class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ request()->is('kelola-kategori-barang') ? 'text-gray-800 dark:text-gray-200' : '' }}"
+          href="{{ route('kelola-kategori-barang') }}"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+        </svg>
+          <span class="ml-4">Data Kategori Barang</span>
+        </a>
+      </li>
+    @endif
 
     <li class="relative px-6 py-3">
       <button

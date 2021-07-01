@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BarangExport;
 use App\Models\Barang;
 use App\Models\Guru;
+use App\Models\Kategori;
 use App\Models\Ruangan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -325,7 +326,7 @@ class UsersController extends Controller
                 ->orWhere('nip', 'LIKE', '%' .$request->cari. '%')
                 ->get();
         }else {
-            $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(10);
+            $dataGuru = Guru::orderBy('golongan', 'desc')->paginate(25);
         }
 
         return view('pages.guru', compact('dataGuru'));
@@ -447,12 +448,132 @@ class UsersController extends Controller
     // END: Guru
 
 
+    // START: Kategori Barang
+    public function view_kategoriBarang(Request $request)
+    {
+        if($request->has('cari')) {
+            $dataKategori = Kategori::where('kategori', 'LIKE', '%' .$request->cari. '%')->get();
+        }else {
+            $dataKategori = Kategori::orderBy('kategori', 'asc')->paginate(25);
+        }
+
+        return view('pages.kategori-barang', compact('dataKategori'));
+    }
+
+    public function destroyKategoriBarang(Kategori $kategori) {
+        $checkDbBarang = Barang::where('kategori_id', $kategori->id)->get()->count();
+
+        if($checkDbBarang > 0){
+            return redirect()->route('kelola-kategori-barang')->with('gagal', 'Data kategori barang tidak bisa dihapus karena kategori barang tersebut masih dipakai di data barang!');
+        }else{
+            $kategori->delete();
+        }
+
+        return redirect()->route('kelola-kategori-barang')->with('sukses', 'Data kategori barang berhasil dihapus!');
+    }
+
+    public function destroySemuaKategoriBarang() {
+        $checkBarang = Barang::select('kategori_id')->get()->count();
+
+        if($checkBarang > 0) {
+            return redirect()->route('kelola-kategori-barang')->with('gagal', 'Semua data kategori barang tidak bisa dihapus karena salah satu kategori barang masih dipakai di data barang!');
+        }else {
+            $dataKategori = Kategori::all()->count();
+
+            if($dataKategori < 1) {
+                return redirect()->route('kelola-kategori-barang')->with('gagal', 'Data sudah kosong!');
+            }else{
+                Kategori::query()->delete();
+
+                return redirect()->route('kelola-kategori-barang')->with('sukses', 'Semua data kategori barang berhasil dihapus!');
+            }
+        }
+    }
+
+    public function view_tambahKategoriBarang()
+    {
+        return view('pages.tambah-kategori-barang');
+    }
+
+    public function storeKategoriBarang(Request $request) {
+        $rules = [
+            'kategori' => 'required|string',
+        ];
+
+        $message = [
+            'kategori.required' => 'Kategori harus diisi!',
+        ];
+
+        $validate = $this->validate($request, $rules, $message);
+
+        if($validate){
+            Kategori::create([
+                'kategori' => $request->kategori,
+            ]);
+            return redirect()->route('kelola-kategori-barang')->with('sukses', 'Data kategori barang berhasil ditambahkan!');
+        }
+    }
+
+    public function view_editKategoriBarang(Kategori $kategori) {
+        return view('pages.edit-kategori-barang', compact('kategori'));
+    }
+
+    public function storeEditKategoriBarang(Request $request, Kategori $kategori) {
+        $rules = [
+            'kategori' => 'required|string',
+        ];
+
+        $message = [
+            'kategori.required' => 'Kategori harus diisi!',
+        ];
+
+        $validate = $this->validate($request, $rules, $message);
+
+        if($validate){
+            $kategori->update([
+                'kategori' => $request->kategori,
+            ]);
+            return redirect()->route('kelola-kategori-barang')->with('sukses', 'Data kategori barang berhasil diubah!');
+        }
+    }
+
+    public function view_tongSampahKategoriBarang() {
+        $kategoriTrashed = Kategori::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+        return view('pages.tong-sampah-kategori-barang', compact('kategoriTrashed'));
+    }
+
+    public function pulihkanKategoriBarang($id = null) {
+        if($id != null) {
+            Kategori::onlyTrashed()->where('id', $id)->restore();
+            return redirect()->route('tong-sampah-kategori-barang')->with('sukses', 'Data berhasil dipulihkan!');
+        }else {
+            Kategori::onlyTrashed()->restore();
+            return redirect()->route('kelola-kategori-barang')->with('sukses', 'Data berhasil dipulihkan!');
+        }
+    }
+
+    public function hapusPermanenKategoriBarang($id = null) {
+        if($id != null) {
+            Kategori::onlyTrashed()->where('id', $id)->forceDelete();
+            return redirect()->route('tong-sampah-kategori-barang')->with('sukses', 'Data berhasil dihapus secara permanen!');
+        } else {
+            Kategori::onlyTrashed()->forceDelete();
+            return redirect()->route('kelola-kategori-barang')->with('sukses', 'Data berhasil dihapus secara permanen!');
+        }
+    }
+    // END: Kategori Barang
+
+
     // START: Barang
     public function view_kelolaBarang(Request $request, Ruangan $ruangan)
     {
         // Eloquent
         $barang = Barang::query();
         $barang->where('ruangan_id', $ruangan->id);
+
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
+        }
 
         if($request->filled('nama_barang')) {
             $barang->where('nama_barang', $request->nama_barang);
@@ -462,7 +583,7 @@ class UsersController extends Controller
             $barang->where('kondisi', $request->kondisi);
         }
 
-        return view('pages.kelola-barang', ['ruangan' => $ruangan, 'barang' => $barang->orderBy('nama_barang', 'asc')->paginate(5)]);
+        return view('pages.kelola-barang', ['ruangan' => $ruangan, 'barang' => $barang->orderBy('nama_barang', 'asc')->paginate(25)]);
     }
 
     public function view_tambahBarang(Ruangan $ruangan)
@@ -478,11 +599,13 @@ class UsersController extends Controller
             'nama_barang' => 'required',
             'unit' => 'required',
             'kondisi' => 'required',
+            'kategori_id' => 'required'
         ];
         $message = [
             'nama_barang.required' => 'Nama barang harus diisi!',
             'unit.required' => 'Unit harus diisi!',
             'kondisi.required' => 'Kondisi harus diisi!',
+            'kategori_id.required' => 'Kategori harus diisi!'
         ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi
@@ -504,6 +627,7 @@ class UsersController extends Controller
                     'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                     'image_url' => $fileName,
+                    'kategori_id' => $request->kategori_id,
                     'ruangan_id' => $ruangan->id,
                 ]);
                 // END: Simpan data ke database
@@ -518,6 +642,7 @@ class UsersController extends Controller
                     'tahun' => $request->tahun,
                     'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
+                    'kategori_id' => $request->kategori_id,
                     'ruangan_id' => $ruangan->id,
                 ]);
                 // END: Simpan data ke database
@@ -561,11 +686,13 @@ class UsersController extends Controller
             'nama_barang' => 'required',
             'unit' => 'required',
             'kondisi' => 'required',
+            'kategori_id' => 'required'
         ];
         $message = [
             'nama_barang.required' => 'Nama barang harus diisi!',
             'unit.required' => 'Unit harus diisi!',
             'kondisi.required' => 'Kondisi harus diisi!',
+            'kategori_id.required' => 'Kategori harus diisi!'
         ];
         $validate = $this->validate($request, $rules, $message);
         // END: Check validasi data
@@ -587,6 +714,7 @@ class UsersController extends Controller
                     'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
                     'image_url' => $fileName,
+                    'kategori_id' => $request->kategori_id,
                 ]);
                 // END: Simpan data ke database
 
@@ -600,6 +728,7 @@ class UsersController extends Controller
                     'tahun' => $request->tahun,
                     'unit' => $request->unit,
                     'kondisi' => $request->kondisi,
+                    'kategori_id' => $request->kategori_id,
                 ]);
                 // END: Simpan data ke database
 
@@ -734,7 +863,7 @@ class UsersController extends Controller
     // START: Laporan Barang Peruangan
     public function view_laporanBarangPeruangan()
     {
-        $ruangan = Ruangan::orderBy('id', 'asc')->paginate(6);
+        $ruangan = Ruangan::orderBy('id', 'asc')->paginate(8);
         return view('pages.laporan-barang-peruangan', compact('ruangan'));
     }
 
@@ -752,8 +881,12 @@ class UsersController extends Controller
         $tahunNow = Carbon::now()->format('Y');
         $guruPenanggungJawab = Guru::where('id', $ruangan->guru_id)->get();
 
-        if($request->filled('cetak')) {
-            $barang->where('kondisi', $request->cetak);
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
+        }
+
+        if($request->filled('kondisi')) {
+            $barang->where('kondisi', $request->kondisi);
         }
 
         return view('pages.print-laporan-barang-peruangan', [
@@ -788,11 +921,16 @@ class UsersController extends Controller
         $tahunNow = Carbon::now()->format('Y');
 
         $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->join('kategori', 'barang.kategori_id', '=', 'kategori.id')
                     ->where('nama_ruangan', 'LIKE', '%VII__')
                     ->orderBy('nama_ruangan', 'asc');
 
-        if($request->filled('cetak')) {
-            $barang->where('kondisi', $request->cetak);
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
+        }
+
+        if($request->filled('kondisi')) {
+            $barang->where('kondisi', $request->kondisi);
         }
 
         return view('pages.print-laporan-barang-angkatan-vii', [
@@ -818,13 +956,18 @@ class UsersController extends Controller
         $tahunNow = Carbon::now()->format('Y');
 
         $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->join('kategori', 'barang.kategori_id', '=', 'kategori.id')
                     ->where('nama_ruangan', 'LIKE', '%VIII__')
                     ->orderBy('nama_ruangan', 'asc');
 
-        if($request->filled('cetak')) {
-            $barang->where('kondisi', $request->cetak);
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
         }
 
+        if($request->filled('kondisi')) {
+            $barang->where('kondisi', $request->kondisi);
+        }
+        
         return view('pages.print-laporan-barang-angkatan-viii', [
             'barang' => $barang->get(),
             'tanggalNow' => $tanggalNow,
@@ -848,11 +991,16 @@ class UsersController extends Controller
         $tahunNow = Carbon::now()->format('Y');
 
         $barang = DB::table('ruangan')->join('barang', 'ruangan.id', '=', 'barang.ruangan_id')
+                    ->join('kategori', 'barang.kategori_id', '=', 'kategori.id')
                     ->where('nama_ruangan', 'LIKE', '%IX__')
                     ->orderBy('nama_ruangan', 'asc');
 
-        if($request->filled('cetak')) {
-            $barang->where('kondisi', $request->cetak);
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
+        }
+
+        if($request->filled('kondisi')) {
+            $barang->where('kondisi', $request->kondisi);
         }
 
         return view('pages.print-laporan-barang-angkatan-ix', [
@@ -882,8 +1030,12 @@ class UsersController extends Controller
         $bulanNow = Carbon::now()->format('F');
         $tahunNow = Carbon::now()->format('Y');
 
-        if($request->filled('cetak')) {
-            $barang->where('kondisi', $request->cetak);
+        if($request->filled('kategori_id')) {
+            $barang->where('kategori_id', $request->kategori_id);
+        }
+
+        if($request->filled('kondisi')) {
+            $barang->where('kondisi', $request->kondisi);
         }
 
         return view('pages.print-laporan-barang-semua-ruangan', [

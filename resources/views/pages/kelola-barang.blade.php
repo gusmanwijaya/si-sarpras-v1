@@ -16,7 +16,22 @@
             <form action="{{ route('kelola-barang', $ruangan->id) }}" method="GET">
               <label class="text-gray-800 dark:text-gray-50 text-sm ml-3">Filter berdasarkan</label>
               <div class="flex flex-row items-center justify-between mt-2">
-                <div class='w-full md:w-1/2 px-3'>
+
+                <div class='w-full md:w-4/12 px-3'>
+                  <div class="flex-shrink w-full inline-block relative">
+                      <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="kategori_id" id="kategori_id">
+                          <option value="">Kategori Barang</option>
+                          @foreach(kategoriBarang() as $kategori)
+                          <option value="{{ $kategori->id }}">{{ $kategori->kategori }}</option>
+                          @endforeach
+                      </select>
+                      <div class="pointer-events-none absolute top-0 mt-3  right-0 flex items-center px-2 text-gray-600">
+                          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                      </div>
+                  </div>
+                </div>
+
+                <div class='w-full md:w-4/12 px-3'>
                   <div class="flex-shrink w-full inline-block relative">
                       <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="nama_barang" id="nama_barang">
                           <option value="">Nama Barang</option>
@@ -30,7 +45,7 @@
                   </div>
                 </div>
 
-                <div class='w-full md:w-1/2 px-3'>
+                <div class='w-full md:w-4/12 px-3'>
                   <div class="flex-shrink w-full inline-block relative">
                       <select class="block appearance-none text-gray-600 w-full bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-800 dark:text-gray-50 shadow-inner px-4 py-2 pr-8 rounded focus:outline-none" name="kondisi" id="kondisi">
                           <option value="">Kondisi</option>
